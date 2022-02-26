@@ -8,24 +8,23 @@ class SinglyLinkedList:
         self.head = head
 
     # Traverse and print the linked list
-    def traverse(self):
+    def traverse_print(self):
         curNode = self.head
-        while(curNode):
+        while curNode is not None:
             print(curNode.data)
             curNode = curNode.next
 
     # Find the tail of the linked list
     def find_tail(self):
         curNode = self.head
-        while(curNode):
+        while curNode is not None:
             curNode = curNode.next
         return curNode
 
     # Insert node at the beginning of the list
     def insert_beginning(self, node):
-        temp = self.head
+        node.next = self.head
         self.head = node
-        node.next = temp
 
 
     # Insert node at the end of the list
