@@ -1,7 +1,4 @@
-class Node:
-    def __init__(self, data = None):
-        self.data = data
-        self.next = None
+from node import Node
 
 class SinglyLinkedList:
     def __init__(self, head = None):
