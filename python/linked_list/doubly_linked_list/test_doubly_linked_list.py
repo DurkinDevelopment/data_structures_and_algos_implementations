@@ -61,7 +61,7 @@ class TestDoublyLinkedList(TestDoublyLinkedListBase):
 
     def test_init_not_empty(self):
         # Create a linked list with a single node
-        node = Node(1, None, None))
+        node = Node(1, None, None)
         self.single_node_linked_list = DoublyLinkedList(node)
         assert self.single_node_linked_list.head is not None
         assert self.single_node_linked_list.head is node

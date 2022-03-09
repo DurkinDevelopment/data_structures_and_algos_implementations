@@ -26,14 +26,15 @@ class DoublyLinkedList:
 
     # Append the data as a new node at the end of the list
     def append(self, data):
-         if self.head == None:
-            self.head = Node(data)
+        if self.head == None:
+            self.head = Node(data, self.tail, None)
             self.tail = self.head
             self.count += 1
-        
-        self.tail.next = Node(data)
-        self.tail.next.prev = self.tail
-        self.tail = self.tail.next
+            return
+
+        node = Node(data, None, self.tail)
+        self.tail.next = node
+        self.tail = node
         self.count += 1
 
     # Insert a new node with the data at location {index}
