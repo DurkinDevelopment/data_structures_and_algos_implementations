@@ -1,6 +1,5 @@
 import pytest
-from node import Node
-from singly_linked_list import SinglyLinkedList
+from singly_linked_list import Node, SinglyLinkedList
 
 class TestNodeBase:
     @pytest.fixture(autouse = True)
