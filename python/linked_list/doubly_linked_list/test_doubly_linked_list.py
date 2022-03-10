@@ -33,55 +33,41 @@ class TestNode(TestNodeBase):
         assert self.second_node.prev == self.node
         assert self.second_node.next == None
 
-class TestDoublyLinkedListBase:
-
-    @pytest.fixture(autouse = True)
-    def doubly_linked_list_fixture(self):
-        # Create a linked list with a single node
-        self.single_node_linked_list = DoublyLinkedList(Node(1, None, None))
-        # Create a linked list with two nodes
-        self.double_node_linked_list = DoublyLinkedList(Node(1, None, None))
-        self.double_node_linked_list.insert_at_end(Node(2, None, None))
-        # Create a linked list with three nodes
-        self.triple_node_linked_list = DoublyLinkedList(Node(1, None, None))
-        self.triple_node_linked_list.insert_at_end(Node(2, None, None))
-        self.triple_node_linked_list.insert_at_end(Node(3, None, None))
-
-class TestDoublyLinkedList(TestDoublyLinkedListBase):
+class TestDoublyLinkedList():
 
     def test_init_empty(self):
         # Create a linked list with no nodes
-        self.empty_linked_list = DoublyLinkedList()
-        assert self.empty_linked_list.head == None
-        assert self.empty_linked_list.tail == None
+        empty_linked_list = DoublyLinkedList()
+        assert empty_linked_list.head == None
+        assert empty_linked_list.tail == None
 
     def test_init_not_empty(self):
         # Create a linked list with a single node
         node = Node(1, None, None)
-        self.single_node_linked_list = DoublyLinkedList(node)
-        assert self.single_node_linked_list.head == node
-        assert self.single_node_linked_list.head.data == node.data
-        assert self.single_node_linked_list.head.next == None
-        assert self.single_node_linked_list.head.prev == None
-        assert self.single_node_linked_list.tail == node
-        assert self.single_node_linked_list.tail.data == node.data
-        assert self.single_node_linked_list.tail.next == None
-        assert self.single_node_linked_list.tail.prev == None
+        single_node_linked_list = DoublyLinkedList(node)
+        assert single_node_linked_list.head == node
+        assert single_node_linked_list.head.data == node.data
+        assert single_node_linked_list.head.next == None
+        assert single_node_linked_list.head.prev == None
+        assert single_node_linked_list.tail == node
+        assert single_node_linked_list.tail.data == node.data
+        assert single_node_linked_list.tail.next == None
+        assert single_node_linked_list.tail.prev == None
     
     def test_traverse_print_from_head(self, capsys):
         # Create a linked list with two nodes
-        self.double_node_linked_list = DoublyLinkedList(Node(1, None, None))
-        self.double_node_linked_list.insert_at_end(Node(2, None, None))
-        self.double_node_linked_list.traverse_print_from_head()
+        double_node_linked_list = DoublyLinkedList(Node(1, None, None))
+        double_node_linked_list.insert_at_end(Node(2, None, None))
+        double_node_linked_list.traverse_print_from_head()
         captured = capsys.readouterr()
         assert captured.out == "1\n2\n"
 
 
     def test_traverse_print_from_tail(self, capsys):
         # Create a linked list with two nodes
-        self.double_node_linked_list = DoublyLinkedList(Node(1, None, None))
-        self.double_node_linked_list.insert_at_end(Node(2, None, None))
-        self.double_node_linked_list.traverse_print_from_tail()
+        double_node_linked_list = DoublyLinkedList(Node(1, None, None))
+        double_node_linked_list.insert_at_end(Node(2, None, None))
+        double_node_linked_list.traverse_print_from_tail()
         captured = capsys.readouterr()
         assert captured.out == "2\n1\n"
 
@@ -89,15 +75,36 @@ class TestDoublyLinkedList(TestDoublyLinkedListBase):
 
     def test_insert_at_beginning_empty_to_single(self):
         # Create a linked list with no nodes
-        self.empty_linked_list = DoublyLinkedList()
-        assert self.empty_linked_list.head == None
-        assert self.empty_linked_list.tail == None
-        self.node = Node(1, None, None)
-        self.empty_linked_list.insert_at_beginning(self.node)
-        assert self.empty_linked_list.count == 1
-        assert self.empty_linked_list.head == self.node
-        assert self.empty_linked_list.tail == self.node
+        empty_linked_list = DoublyLinkedList()
+        assert empty_linked_list.head == None
+        assert empty_linked_list.tail == None
+        # Create a new node and insert it at the beginning of the empty list
+        node = Node(1, None, None)
+        empty_linked_list.insert_at_beginning(node)
+        assert empty_linked_list.count == 1
+        assert empty_linked_list.head == node
+        assert empty_linked_list.tail == node
 
+    def test_insert_at_beginning_single_to_double(self):
+        # Create a linked list with a single node
+        first_node = Node(1, None, None)
+        single_node_linked_list = DoublyLinkedList(first_node)
+        assert single_node_linked_list.head == first_node
+        assert single_node_linked_list.tail == first_node
+        second_node = Node(2, None, None)
+        single_node_linked_list.insert_at_beginning(second_node)
+        assert single_node_linked_list.head == second_node
+        assert single_node_linked_list.tail == first_node
+
+        # Create a linked list with no nodes
+        #self.empty_linked_list = DoublyLinkedList()
+        #assert self.empty_linked_list.head == None
+        #assert self.empty_linked_list.tail == None
+        #self.node = Node(1, None, None)
+        #self.empty_linked_list.insert_at_beginning(self.node)
+        #assert self.empty_linked_list.count == 1
+        #assert self.empty_linked_list.head == self.node
+        #assert self.empty_linked_list.tail == self.node
 
     #def test_insert_end(self):
 
