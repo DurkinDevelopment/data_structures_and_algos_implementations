@@ -89,10 +89,12 @@ class TestDoublyLinkedList():
         # Create a linked list with a single node
         first_node = Node(1, None, None)
         single_node_linked_list = DoublyLinkedList(first_node)
+        assert single_node_linked_list.count == 1
         assert single_node_linked_list.head == first_node
         assert single_node_linked_list.tail == first_node
         second_node = Node(2, None, None)
         single_node_linked_list.insert_at_beginning(second_node)
+        assert single_node_linked_list.count == 2
         assert single_node_linked_list.head == second_node
         assert single_node_linked_list.tail == first_node
 
