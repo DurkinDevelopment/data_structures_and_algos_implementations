@@ -5,10 +5,12 @@ class Node:
         self.prev = prev
 
 class DoublyLinkedList:
-    def __init__(self):
-        self.head = None
-        self.tail = None
+    def __init__(self, node = None):
+        self.head = node
+        self.tail = node
         self.count = 0
+        if node != None:
+            self.count += 1
 
     def __repr__(self):
         string = ""
@@ -41,7 +43,7 @@ class DoublyLinkedList:
     def insert(self, data, index):
         # If index is out of range, raise an error
         if index > self.count or index < 0:
-            raise ValueError(f"Index out of range: {index}, size: {self.count}"
+            raise ValueError(f"Index out of range: {index}, size: {self.count}")
 
         # Append to the end of the list
         if index == self.count:
@@ -70,7 +72,7 @@ class DoublyLinkedList:
     
     # Remove the node by index
     def remove(self, index):
-        if index >= self.count or index < 0
+        if index >= self.count or index < 0:
             raise ValueError(f"Index out of range: {index}, size: {self.count}")
 
         if index == 0:
