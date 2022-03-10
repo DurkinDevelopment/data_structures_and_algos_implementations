@@ -134,20 +134,20 @@ class TestDoublyLinkedList():
         assert empty_linked_list.head == node
         assert empty_linked_list.tail == node
 
-    def test_insert_at_beginning_single_to_double(self):
+    def test_insert_at_end_single_to_double(self):
         # Create a linked list with a single node
         first_node = Node(1, None, None)
         single_node_linked_list = DoublyLinkedList(first_node)
         assert single_node_linked_list.count == 1
         assert single_node_linked_list.head == first_node
         assert single_node_linked_list.tail == first_node
-        # Insert a new node at the beginning of the list
+        # Insert a new node at the end of the list
         second_node = Node(2, None, None)
         second_node = Node(2, None, None)
-        single_node_linked_list.insert_at_beginning(second_node)
+        single_node_linked_list.insert_at_end(second_node)
         assert single_node_linked_list.count == 2
-        assert single_node_linked_list.head == second_node
-        assert single_node_linked_list.tail == first_node
+        assert single_node_linked_list.head == first_node
+        assert single_node_linked_list.tail == second_node
 
     def test_insert_at_beginning_double_to_triple(self):
         # Create a linked list with a single node
