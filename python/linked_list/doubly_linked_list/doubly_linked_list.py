@@ -140,10 +140,24 @@ class DoublyLinkedList:
     def insert_at_beginning(self, node):
         if node is None:
             return None
-        temp = self.head
-        self.head = node
-        self.head.next = temp
-        temp.prev = self.head
+        # Handle the edge case for adding a node to an empty list
+        if self.count == 0:
+            self.head = node
+            self.tail = node
+        # Handle the edge case for adding a node with a single node list
+        elif self.count == 1:
+            # Update the head pointer to point at the new node and update the head's next pointer to point at the tail node
+            self.head = node
+            self.head.next = self.tail
+            # Update the tail pointer to point to the new head pointer
+            self.tail.prev = self.head
+        else: #If there are 2 or more nodes, adding to the beginning of the list functionality is the same
+            temp = self.head
+            self.head = node
+            self.head.next = temp
+            temp.prev = self.head
+
+        self.count += 1
         return self.head
 
     # Insert node at the end of the list
@@ -154,6 +168,7 @@ class DoublyLinkedList:
         self.tail = node
         self.tail.prev = temp
         temp.next = self.tail
+        self.count += 1
         return self.tail
 
     # Insert the new node after the middle_node

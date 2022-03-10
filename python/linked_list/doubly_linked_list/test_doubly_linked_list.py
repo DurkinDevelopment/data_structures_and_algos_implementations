@@ -87,7 +87,17 @@ class TestDoublyLinkedList(TestDoublyLinkedListBase):
 
     ## TODO: Test cases for the use case of an empty, single, double, & triple node linked list
 
-    #def test_insert_beginning(self):
+    def test_insert_at_beginning_empty_to_single(self):
+        # Create a linked list with no nodes
+        self.empty_linked_list = DoublyLinkedList()
+        assert self.empty_linked_list.head == None
+        assert self.empty_linked_list.tail == None
+        self.node = Node(1, None, None)
+        self.empty_linked_list.insert_at_beginning(self.node)
+        assert self.empty_linked_list.count == 1
+        assert self.empty_linked_list.head == self.node
+        assert self.empty_linked_list.tail == self.node
+
 
     #def test_insert_end(self):
 
