@@ -77,7 +77,13 @@ class TestDoublyLinkedList(TestDoublyLinkedListBase):
         assert captured.out == "1\n2\n"
 
 
-    #def test_traverse_print_from_tail(self):
+    def test_traverse_print_from_tail(self, capsys):
+        # Create a linked list with two nodes
+        self.double_node_linked_list = DoublyLinkedList(Node(1, None, None))
+        self.double_node_linked_list.insert_at_end(Node(2, None, None))
+        self.double_node_linked_list.traverse_print_from_tail()
+        captured = capsys.readouterr()
+        assert captured.out == "2\n1\n"
 
     ## TODO: Test cases for the use case of an empty, single, double, & triple node linked list
 
