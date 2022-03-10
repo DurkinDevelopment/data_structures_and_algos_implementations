@@ -164,10 +164,23 @@ class DoublyLinkedList:
     def insert_at_end(self, node):
         if node is None:
             return None
-        temp = self.tail
-        self.tail = node
-        self.tail.prev = temp
-        temp.next = self.tail
+        # Handle the edge case for adding a node to an empty list
+        if self.count == 0:
+            self.head = node
+            self.tail = node
+        # Handle the edge case for adding a node with a single node list
+        elif self.count == 1:
+            # Update the tail pointer to point at the new node and update the tail's prev pointer to point at the head node
+            self.tail = node
+            self.tail.prev = self.head
+            # Update the head pointer to point to the new tail pointer
+            self.head.next = self.tail
+        else: #If there are 2 or more nodes, adding to the end of the list functionality is the same
+            temp = self.tail
+            self.tail = node
+            self.tail.prev = temp
+            temp.prev = self.tail
+
         self.count += 1
         return self.tail
 

@@ -122,6 +122,54 @@ class TestDoublyLinkedList():
         assert single_node_linked_list.tail.prev == second_node
         assert single_node_linked_list.tail == first_node
 
+    def test_insert_at_end_empty_to_single(self):
+        # Create a linked list with no nodes
+        empty_linked_list = DoublyLinkedList()
+        assert empty_linked_list.head == None
+        assert empty_linked_list.tail == None
+        # Create a new node and insert it at the end of the empty list
+        node = Node(1, None, None)
+        empty_linked_list.insert_at_end(node)
+        assert empty_linked_list.count == 1
+        assert empty_linked_list.head == node
+        assert empty_linked_list.tail == node
+
+    def test_insert_at_beginning_single_to_double(self):
+        # Create a linked list with a single node
+        first_node = Node(1, None, None)
+        single_node_linked_list = DoublyLinkedList(first_node)
+        assert single_node_linked_list.count == 1
+        assert single_node_linked_list.head == first_node
+        assert single_node_linked_list.tail == first_node
+        # Insert a new node at the beginning of the list
+        second_node = Node(2, None, None)
+        second_node = Node(2, None, None)
+        single_node_linked_list.insert_at_beginning(second_node)
+        assert single_node_linked_list.count == 2
+        assert single_node_linked_list.head == second_node
+        assert single_node_linked_list.tail == first_node
+
+    def test_insert_at_beginning_double_to_triple(self):
+        # Create a linked list with a single node
+        first_node = Node(1, None, None)
+        single_node_linked_list = DoublyLinkedList(first_node)
+        assert single_node_linked_list.count == 1
+        assert single_node_linked_list.head == first_node
+        assert single_node_linked_list.tail == first_node
+        # Insert a new node at the beginning of the list
+        second_node = Node(2, None, None)
+        single_node_linked_list.insert_at_beginning(second_node)
+        assert single_node_linked_list.count == 2
+        assert single_node_linked_list.head == second_node
+        assert single_node_linked_list.tail == first_node
+        # Insert another new node at the beginning of the list
+        third_node = Node(3, None, None)
+        single_node_linked_list.insert_at_beginning(third_node)
+        assert single_node_linked_list.count == 3
+        assert single_node_linked_list.head == third_node
+        assert single_node_linked_list.head.next == second_node
+        assert single_node_linked_list.tail.prev == second_node
+        assert single_node_linked_list.tail == first_node
     #def test_insert_end(self):
 
     #def test_insert_between_two_nodes(self):
