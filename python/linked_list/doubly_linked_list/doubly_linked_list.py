@@ -27,17 +27,32 @@ class DoublyLinkedList:
         return string
 
     # Append the data as a new node at the end of the list
-    def append(self, data):
+    def append_new_data(self, data):
         if self.head == None:
-            self.head = Node(data, self.tail, None)
+            self.head = Node(data, None, None)
             self.tail = self.head
             self.count += 1
-            return
+            return node
 
         node = Node(data, None, self.tail)
         self.tail.next = node
         self.tail = node
         self.count += 1
+        return node
+    
+    # Append a new node to the end of the list
+    def append_new_node(self, node):
+        if self.head == None:
+            self.head = node
+            self.tail = self.head
+            self.count += 1
+            return node
+
+        node.prev = self.tail
+        self.tail.next = node
+        self.tail = node
+        self.count += 1
+        return node
 
     # Insert a new node with the data at location {index}
     def insert(self, data, index):
