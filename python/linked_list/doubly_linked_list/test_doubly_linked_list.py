@@ -92,34 +92,31 @@ class TestDoublyLinkedList(TestDataGenerator):
         captured = capsys.readouterr()
         assert captured.out == "1\n0\n"
 
-    ## TODO: Test cases for the use case of an empty, single, double, & triple node linked list
-
     def test_insert_at_beginning_empty_to_single(self):
-        # Create a linked list with no nodes
+        empty_linked_list = self.generate_doubly_linked_list(0)
         empty_linked_list = DoublyLinkedList()
         assert empty_linked_list.head == None
         assert empty_linked_list.tail == None
-        # Create a new node and insert it at the beginning of the empty list
-        node = Node(1, None, None)
+        node = self.generate_node(1, None, None)
         empty_linked_list.insert_at_beginning(node)
         assert empty_linked_list.count == 1
         assert empty_linked_list.head == node
         assert empty_linked_list.tail == node
 
     def test_insert_at_beginning_single_to_double(self):
-        # Create a linked list with a single node
-        first_node = Node(1, None, None)
-        single_node_linked_list = DoublyLinkedList(first_node)
+        node_list = self.generate_nodes(2)
+        single_node_linked_list = self.generate_doubly_linked_list_from_nodes(node_list[:1])
         assert single_node_linked_list.count == 1
-        assert single_node_linked_list.head == first_node
-        assert single_node_linked_list.tail == first_node
-        # Insert a new node at the beginning of the list
-        second_node = Node(2, None, None)
-        second_node = Node(2, None, None)
-        single_node_linked_list.insert_at_beginning(second_node)
+        assert single_node_linked_list.head == node_list[0]
+        assert single_node_linked_list.tail == node_list[0]
+        single_node_linked_list.insert_at_beginning(node_list[1])
         assert single_node_linked_list.count == 2
-        assert single_node_linked_list.head == second_node
-        assert single_node_linked_list.tail == first_node
+        assert single_node_linked_list.head == node_list[1]
+        assert single_node_linked_list.head.next == node_list[0]
+        assert single_node_linked_list.head.prev == None
+        assert single_node_linked_list.tail == node_list[0]
+        assert single_node_linked_list.tail.next == None
+        assert single_node_linked_list.tail.prev == node_list[1]
 
     def test_insert_at_beginning_double_to_triple(self):
         # Create a linked list with a single node
