@@ -35,7 +35,8 @@ class TestSinglyLinkedListBase:
 
 class TestSinglyLinkedList(TestSinglyLinkedListBase):
     def test_init_empty(self):
-        assert self.empty_linked_list.head is None
+        assert self.empty_linked_list.head.data is None
+        assert self.empty_linked_list.head.next is None
 
     def test_init_not_empty(self):
         assert self.single_node_linked_list.head is not None
@@ -46,5 +47,3 @@ class TestSinglyLinkedList(TestSinglyLinkedListBase):
         self.double_node_linked_list.traverse_print()
         captured = capsys.readouterr()
         assert captured.out == "1\n2\n"
-        
-

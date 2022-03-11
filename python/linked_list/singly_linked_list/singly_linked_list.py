@@ -4,7 +4,7 @@ class Node:
         self.next = None
 
 class SinglyLinkedList:
-    def __init__(self, head = None):
+    def __init__(self, head = Node()):
         self.head = head
 
     # Traverse and print the linked list
