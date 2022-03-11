@@ -15,7 +15,7 @@ class DoublyLinkedList:
     def __repr__(self):
         string = ""
 
-        if self.head is None:
+        if self.head == None:
             string += "Doubly Linked List Empty"
             return string
 
@@ -125,20 +125,20 @@ class DoublyLinkedList:
     # Print the list out starting from the head
     def traverse_print_from_head(self):
         curNode = self.head
-        while curNode is not None:
+        while curNode != None:
             print(curNode.data)
             curNode = curNode.next
 
     # Print the list out starting from the tail
     def traverse_print_from_tail(self):
         curNode = self.tail
-        while curNode is not None:
+        while curNode != None:
             print(curNode.data)
             curNode = curNode.prev
 
     # Insert the node at the beginning of the list
     def insert_at_beginning(self, node):
-        if node is None:
+        if node == None:
             return None
         # Handle the edge case for adding a node to an empty list
         if self.count == 0:
@@ -162,7 +162,7 @@ class DoublyLinkedList:
 
     # Insert node at the end of the list
     def insert_at_end(self, node):
-        if node is None:
+        if node == None:
             return None
         # Handle the edge case for adding a node to an empty list
         if self.count == 0:
@@ -184,30 +184,38 @@ class DoublyLinkedList:
         self.count += 1
         return self.tail
 
-    # Insert the new node after the middle_node
+    # Insert the new node after the middle_node - This is assuming the middle_node is a valid node in the doubly linked list
     def insert_between_two_nodes(self, middle_node, new_node):
-        if middle_node is None:
-            return None
+        if self.count == 0:
+            raise ValueError("Error: List is empty")
+        if middle_node == None:
+            raise ValueError("Error: Invalid middle_node")
+        if new_node == None:
+            raise ValueError("Error: Invalid new_node")
+        if self.tail == middle_node:
+            return self.insert_at_end(new_node)
+
         new_node.next = middle_node.next
         new_node.prev = middle_node
         middle_node.next.prev = new_node
         middle_node.next = new_node
+        self.count += 1
         return new_node
     
     # Remove the node from the linked list
     def remove_node(self, node):
         # Validate that the node isn't none and the list isn't empty
-        if node is None or self.head is None:
+        if node == None or self.head == None:
             return False
 
         # Validate the edge case - Head node is node to be removed
-        if self.head is node:
+        if self.head == node:
             self.head = self.head.next
             self.head.prev = None
             return True
 
         # Validate the edge case - Tail node is node to be removed
-        if self.tail is node:
+        if self.tail == node:
             self.tail = self.tail.prev
             self.tail.next = None
             return True
@@ -216,9 +224,9 @@ class DoublyLinkedList:
         prev = curNode
 
         # Iterate through the linked list
-        while curNode is not None and curNode.next is not None:
+        while curNode != None and curNode.next != None:
             # Once you find the node, remove the node from the list, and return true
-            if curNode is node:
+            if curNode == node:
                 curNode.prev.next = curNode.next
                 curNode.next.prev = curNode.prev
                 return True
