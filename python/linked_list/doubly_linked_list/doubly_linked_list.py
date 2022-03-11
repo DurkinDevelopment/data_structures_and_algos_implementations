@@ -179,7 +179,7 @@ class DoublyLinkedList:
             temp = self.tail
             self.tail = node
             self.tail.prev = temp
-            temp.prev = self.tail
+            temp.next = self.tail
 
         self.count += 1
         return self.tail
