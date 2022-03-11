@@ -243,18 +243,42 @@ class TestDoublyLinkedList():
         # Create a linked list with a single node
         first_node = Node(1, None, None)
         single_node_linked_list = DoublyLinkedList(first_node)
-        assert single_node_linked_list.count == 0
+        assert single_node_linked_list.count == 1
         assert single_node_linked_list.head == first_node
         assert single_node_linked_list.tail == first_node
-        # Insert a new node at the end of the list
+        # Insert a new node after the first node
         second_node = Node(2, None, None)
-        single_node_linked_list.insert_at_end(second_node)
+        single_node_linked_list.insert_between_two_nodes(first_node, second_node)
         assert single_node_linked_list.count == 2
         assert single_node_linked_list.head == first_node 
         assert single_node_linked_list.tail == second_node
-        # Insert another new node at the end of the list
+        # Insert a third node after the first node
         third_node = Node(3, None, None)
-        single_node_linked_list.insert_at_end(third_node)
+        single_node_linked_list.insert_between_two_nodes(first_node, third_node)
+        assert single_node_linked_list.count == 3
+        assert single_node_linked_list.head == first_node
+        assert single_node_linked_list.head.next.prev == first_node
+        assert single_node_linked_list.head.next == third_node
+        assert single_node_linked_list.tail.prev == third_node
+        assert single_node_linked_list.tail.prev.next == second_node
+        assert single_node_linked_list.tail == second_node
+
+    def test_insert_between_two_nodes_double_node_list_valid_nodes_after_tail(self):
+        # Create a linked list with a single node
+        first_node = Node(1, None, None)
+        single_node_linked_list = DoublyLinkedList(first_node)
+        assert single_node_linked_list.count == 1
+        assert single_node_linked_list.head == first_node
+        assert single_node_linked_list.tail == first_node
+        # Insert a new node after the first node
+        second_node = Node(2, None, None)
+        single_node_linked_list.insert_between_two_nodes(first_node, second_node)
+        assert single_node_linked_list.count == 2
+        assert single_node_linked_list.head == first_node 
+        assert single_node_linked_list.tail == second_node
+        # Insert a third node after the tail node
+        third_node = Node(3, None, None)
+        single_node_linked_list.insert_between_two_nodes(second_node, third_node)
         assert single_node_linked_list.count == 3
         assert single_node_linked_list.head == first_node
         assert single_node_linked_list.head.next.prev == first_node
@@ -263,96 +287,111 @@ class TestDoublyLinkedList():
         assert single_node_linked_list.tail.prev.next == third_node
         assert single_node_linked_list.tail == third_node
 
-    def test_insert_between_two_nodes_double_node_list_valid_nodes_after_tail(self):
-        # Create a linked list with a single node
-        first_node = Node(1, None, None)
-        single_node_linked_list = DoublyLinkedList(first_node)
-        assert single_node_linked_list.count == 0
-        assert single_node_linked_list.head == first_node
-        assert single_node_linked_list.tail == first_node
-        # Insert a new node at the end of the list
-        second_node = Node(2, None, None)
-        single_node_linked_list.insert_at_end(second_node)
-        assert single_node_linked_list.count == 2
-        assert single_node_linked_list.head == first_node 
-        assert single_node_linked_list.tail == second_node
-        # Insert another new node at the end of the list
-        third_node = Node(3, None, None)
-        single_node_linked_list.insert_at_end(third_node)
-        assert single_node_linked_list.count == 3
-        assert single_node_linked_list.head == first_node
-        assert single_node_linked_list.head.next.prev == first_node
-        assert single_node_linked_list.head.next == second_node
-        assert single_node_linked_list.tail.prev == second_node
-        assert single_node_linked_list.tail.prev.next == third_node
-
     def test_insert_between_two_nodes_triple_node_list_valid_nodes_after_head(self):
         # Create a linked list with a single node
         first_node = Node(1, None, None)
         single_node_linked_list = DoublyLinkedList(first_node)
-        assert single_node_linked_list.count == 0
+        assert single_node_linked_list.count == 1
         assert single_node_linked_list.head == first_node
         assert single_node_linked_list.tail == first_node
-        # Insert a new node at the end of the list
+        # Insert a new node after the first node
         second_node = Node(2, None, None)
-        single_node_linked_list.insert_at_end(second_node)
+        single_node_linked_list.insert_between_two_nodes(first_node, second_node)
         assert single_node_linked_list.count == 2
         assert single_node_linked_list.head == first_node 
         assert single_node_linked_list.tail == second_node
-        # Insert another new node at the end of the list
+        # Insert a third node after the second node
         third_node = Node(3, None, None)
-        single_node_linked_list.insert_at_end(third_node)
+        single_node_linked_list.insert_between_two_nodes(second_node, third_node)
         assert single_node_linked_list.count == 3
         assert single_node_linked_list.head == first_node
         assert single_node_linked_list.head.next.prev == first_node
         assert single_node_linked_list.head.next == second_node
         assert single_node_linked_list.tail.prev == second_node
         assert single_node_linked_list.tail.prev.next == third_node
+        assert single_node_linked_list.tail == third_node
+        # Insert a forth node after the middle node
+        forth_node = Node(4, None, None)
+        single_node_linked_list.insert_between_two_nodes(first_node, forth_node)
+        assert single_node_linked_list.count == 4
+        assert single_node_linked_list.head == first_node
+        assert single_node_linked_list.head.next.prev == first_node
+        assert single_node_linked_list.head.next == forth_node
+        assert single_node_linked_list.tail.prev.prev == forth_node
+        assert single_node_linked_list.head.next.next == second_node
+        assert single_node_linked_list.tail.prev == second_node
+        assert single_node_linked_list.tail.prev.next == third_node
+        assert single_node_linked_list.tail == third_node
 
     def test_insert_between_two_nodes_triple_node_list_valid_nodes_after_tail(self):
         # Create a linked list with a single node
         first_node = Node(1, None, None)
         single_node_linked_list = DoublyLinkedList(first_node)
-        assert single_node_linked_list.count == 0
+        assert single_node_linked_list.count == 1
         assert single_node_linked_list.head == first_node
         assert single_node_linked_list.tail == first_node
-        # Insert a new node at the end of the list
+        # Insert a new node after the first node
         second_node = Node(2, None, None)
-        single_node_linked_list.insert_at_end(second_node)
+        single_node_linked_list.insert_between_two_nodes(first_node, second_node)
         assert single_node_linked_list.count == 2
         assert single_node_linked_list.head == first_node 
         assert single_node_linked_list.tail == second_node
-        # Insert another new node at the end of the list
+        # Insert a third node after the second node
         third_node = Node(3, None, None)
-        single_node_linked_list.insert_at_end(third_node)
+        single_node_linked_list.insert_between_two_nodes(second_node, third_node)
         assert single_node_linked_list.count == 3
         assert single_node_linked_list.head == first_node
         assert single_node_linked_list.head.next.prev == first_node
         assert single_node_linked_list.head.next == second_node
         assert single_node_linked_list.tail.prev == second_node
         assert single_node_linked_list.tail.prev.next == third_node
+        assert single_node_linked_list.tail == third_node
+        # Insert a forth node after the middle node
+        forth_node = Node(4, None, None)
+        single_node_linked_list.insert_between_two_nodes(third_node, forth_node)
+        assert single_node_linked_list.count == 4
+        assert single_node_linked_list.head == first_node
+        assert single_node_linked_list.head.next.prev == first_node
+        assert single_node_linked_list.head.next == second_node
+        assert single_node_linked_list.tail.prev.prev == second_node
+        assert single_node_linked_list.head.next.next == third_node
+        assert single_node_linked_list.tail.prev == third_node
+        assert single_node_linked_list.tail.prev.next == forth_node
+        assert single_node_linked_list.tail == forth_node
         
     def test_insert_between_two_nodes_triple_node_list_valid_nodes_after_middle(self):
         # Create a linked list with a single node
         first_node = Node(1, None, None)
         single_node_linked_list = DoublyLinkedList(first_node)
-        assert single_node_linked_list.count == 0
+        assert single_node_linked_list.count == 1
         assert single_node_linked_list.head == first_node
         assert single_node_linked_list.tail == first_node
-        # Insert a new node at the end of the list
+        # Insert a new node after the first node
         second_node = Node(2, None, None)
-        single_node_linked_list.insert_at_end(second_node)
+        single_node_linked_list.insert_between_two_nodes(first_node, second_node)
         assert single_node_linked_list.count == 2
         assert single_node_linked_list.head == first_node 
         assert single_node_linked_list.tail == second_node
-        # Insert another new node at the end of the list
+        # Insert a third node after the second node
         third_node = Node(3, None, None)
-        single_node_linked_list.insert_at_end(third_node)
+        single_node_linked_list.insert_between_two_nodes(second_node, third_node)
         assert single_node_linked_list.count == 3
         assert single_node_linked_list.head == first_node
         assert single_node_linked_list.head.next.prev == first_node
         assert single_node_linked_list.head.next == second_node
         assert single_node_linked_list.tail.prev == second_node
         assert single_node_linked_list.tail.prev.next == third_node
-
+        assert single_node_linked_list.tail == third_node
+        # Insert a forth node after the middle node
+        forth_node = Node(4, None, None)
+        single_node_linked_list.insert_between_two_nodes(second_node, forth_node)
+        assert single_node_linked_list.count == 4
+        assert single_node_linked_list.head == first_node
+        assert single_node_linked_list.head.next.prev == first_node
+        assert single_node_linked_list.head.next == second_node
+        assert single_node_linked_list.tail.prev.prev == second_node
+        assert single_node_linked_list.head.next.next == forth_node
+        assert single_node_linked_list.tail.prev == forth_node
+        assert single_node_linked_list.tail.prev.next == third_node
+        
     #def test_remove_node(self):
