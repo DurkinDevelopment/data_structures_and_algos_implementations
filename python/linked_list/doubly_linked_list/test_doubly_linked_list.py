@@ -164,13 +164,13 @@ class TestDoublyLinkedList(TestDataGenerator):
         assert double_node_linked_list.tail == node_list[1]
         double_node_linked_list.insert_at_end(node_list[2])
         assert double_node_linked_list.count == 3
-        assert double_node_linked_list.head == node_list[2]
-        assert double_node_linked_list.head.next == node_list[0]
+        assert double_node_linked_list.head == node_list[0]
+        assert double_node_linked_list.head.next == node_list[1]
         assert double_node_linked_list.head.prev == None
-        assert double_node_linked_list.head.next.next == node_list[1]
-        assert double_node_linked_list.head.next.prev == node_list[2]
-        assert double_node_linked_list.tail == node_list[1]
-        assert double_node_linked_list.tail.prev == node_list[0]
+        assert double_node_linked_list.head.next.next == node_list[2]
+        assert double_node_linked_list.head.next.prev == node_list[0]
+        assert double_node_linked_list.tail == node_list[2]
+        assert double_node_linked_list.tail.prev == node_list[1]
         assert double_node_linked_list.tail.next == None
 
     # TODO: Cover test cases for empty, single, and double+ node lists - Also the tail pointer as the middle_node for single & double+ node list
