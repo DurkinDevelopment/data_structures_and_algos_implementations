@@ -55,10 +55,16 @@ class DoublyLinkedList:
         return node
 
     # Insert a new node with the data at location {index}
-    def insert(self, data, index):
+    def insert_node_by_index(self, data, index):
         # If index is out of range, raise an error
         if index > self.count or index < 0:
-            raise ValueError(f"Index out of range: {index}, size: {self.count}")
+            raise ValueError(f"Error: Index out of range: {index}, size: {self.count}")
+
+        if data == None:
+            raise ValueError(f"Error: Node must not be null.")
+
+        if data.val == None:
+            raise ValueError(f"Error: Node must have valid value.")
 
         # Append to the end of the list
         if index == self.count:
@@ -86,7 +92,7 @@ class DoublyLinkedList:
         return
     
     # Remove the node by index
-    def remove(self, index):
+    def remove_by_index(self, index):
         if index >= self.count or index < 0:
             raise ValueError(f"Index out of range: {index}, size: {self.count}")
 
@@ -203,10 +209,13 @@ class DoublyLinkedList:
     def insert_between_two_nodes(self, middle_node, new_node):
         if self.count == 0:
             raise ValueError("Error: List is empty")
+
         if middle_node == None:
             raise ValueError("Error: Invalid middle_node")
+
         if new_node == None:
             raise ValueError("Error: Invalid new_node")
+
         if self.tail == middle_node:
             return self.insert_at_end(new_node)
 
@@ -218,21 +227,45 @@ class DoublyLinkedList:
         return new_node
     
     # Remove the node from the linked list
-    def remove_node(self, node):
-        # Validate that the node isn't none and the list isn't empty
-        if node == None or self.head == None:
-            return False
+    def remove_by_node(self, node):
+        # Validate that the list isn't empty
+        if self.count == 0:
+            raise ValueError("Error: List is empty")
+        
+        # Validate that the tail node is valid
+        if self.tail == None:
+            raise ValueError("Error: Tail is null")
+        
+        # Validate that the head node is valid
+        if self.head == None:
+            raise ValueError("Error: Head is null")
+
+        # Validate that the node is not null
+        if node == None: 
+            raise ValueError("Error: Invalid node")
+
+        # Validate that the node data is not null
+        if node.data == None: 
+            raise ValueError("Error: Invalid node data")
+
+        if self.count == 1 and self.head == node:
+            self.head = None
+            self.tail = None
+            self.count -= 1
+            return True
 
         # Validate the edge case - Head node is node to be removed
         if self.head == node:
             self.head = self.head.next
             self.head.prev = None
+            self.count -= 1
             return True
 
         # Validate the edge case - Tail node is node to be removed
         if self.tail == node:
             self.tail = self.tail.prev
             self.tail.next = None
+            self.count -= 1
             return True
 
         curNode = self.head
@@ -244,7 +277,10 @@ class DoublyLinkedList:
             if curNode == node:
                 curNode.prev.next = curNode.next
                 curNode.next.prev = curNode.prev
+                self.count -= 1
                 return True
+            prevNode = curNode
+            curNode = curNode.next
 
         return False
 

@@ -79,7 +79,6 @@ class TestDoublyLinkedList(TestDataGenerator):
             assert linked_list.tail.next == None
             assert linked_list.tail.prev == linked_list.head
         else: 
-            
             # Handle the head edge case
             assert linked_list.head.data != None
             assert linked_list.head.prev == None
@@ -222,56 +221,82 @@ class TestDoublyLinkedList(TestDataGenerator):
         linked_list.insert_between_two_nodes(node_list[1], node_list[3])
         self.validate_list_is_connected(linked_list)
 
-    def test_remove_node_empty_list(self):
+    def test_remove_by_node_empty_list(self):
         with pytest.raises(ValueError) as excinfo:
-            node_list = self.generate_nodes(1)
-            linked_list = self.generate_doubly_linked_list_from_nodes(node_list[:0])
-            linked_list.remove_node(node_list[0])
+            node = self.generate_node(None, None, None)
+            linked_list = self.generate_doubly_linked_list_from_nodes([])
+            linked_list.remove_by_node(node)
             self.validate_list_is_connected(linked_list)
             assert str(excinfo.value) == "Error: List is empty"
 
-    ## TODO: All the test cases below are a WIP, they are the template use cases that need to be updated with the specific domain logic
-    def test_remove_list_invalid_node(self):
+    def test_remove_by_node_list_invalid_node(self):
         with pytest.raises(ValueError) as excinfo:
             node_list = self.generate_nodes(2)
             linked_list = self.generate_doubly_linked_list_from_nodes(node_list[:1])
-            linked_list.remove_node(node_list[1])
+            linked_list.remove_by_node(None)
             self.validate_list_is_connected(linked_list)
             assert str(excinfo.value) == "Error: Invalid node"
 
-    def test_remove_node_single_list(self):
+    def test_remove_by_node_list_invalid_node_data(self):
+        with pytest.raises(ValueError) as excinfo:
+            node = self.generate_node(None, None, None)
+            node_list = self.generate_nodes(2)
+            linked_list = self.generate_doubly_linked_list_from_nodes(node_list[:1])
+            linked_list.remove_by_node(node)
+            self.validate_list_is_connected(linked_list)
+            assert str(excinfo.value) == "Error: Invalid node data"
+
+    def test_remove_by_node_list_invalid_head(self):
+        with pytest.raises(ValueError) as excinfo:
+            node = self.generate_node(None, None, None)
+            node_list = self.generate_nodes(2)
+            linked_list = self.generate_doubly_linked_list_from_nodes([])
+            linked_list.head = None
+            linked_list.remove_by_node(node)
+            assert str(excinfo.value) == "Error: Head is null" 
+
+    def test_remove_by_node_list_invalid_head(self):
+        with pytest.raises(ValueError) as excinfo:
+            node = self.generate_node(None, None, None)
+            linked_list = self.generate_doubly_linked_list_from_nodes([])
+            linked_list.tail = None
+            linked_list.remove_by_node(node)
+            assert str(excinfo.value) == "Error: Tail is null" 
+
+    def test_remove_by_node_single_list(self):
         node_list = self.generate_nodes(1)
         linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_node(node_list[0])
         self.validate_list_is_connected(linked_list)
         
-    def test_remove_node_double_list_from_head(self):
+    def test_remove_by_node_double_list_from_head(self):
         node_list = self.generate_nodes(2)
         linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_node(linked_list.head)
         self.validate_list_is_connected(linked_list)
 
-    def test_remove_node_double_list_from_tail(self):
+    def test_remove_by_node_double_list_from_tail(self):
         node_list = self.generate_nodes(2)
         linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_node(linked_list.tail)
         self.validate_list_is_connected(linked_list)
         
-    def test_remove_node_triple_list(self):
+    def test_remove_by_node_triple_list_from_head(self):
         node_list = self.generate_nodes(3)
         linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_node(linked_list.head)
         self.validate_list_is_connected(linked_list)
         
-    def test_remove_node_triple_list_from_head(self):
+    def test_remove_by_node_triple_list_from_middle(self):
         node_list = self.generate_nodes(3)
         linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_node(node_list[1])
         self.validate_list_is_connected(linked_list)
         
-    def test_remove_node_triple_list_from_middle(self):
+    def test_remove_by_node_triple_list_from_tail(self):
         node_list = self.generate_nodes(3)
         linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
-        self.validate_list_is_connected(linked_list)
-        
-    def test_remove_node_triple_list_from_tail(self):
-        node_list = self.generate_nodes(3)
-        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_node(linked_list.tail)
         self.validate_list_is_connected(linked_list)
 
     ## TODO: Create test coverage for append / insert / and any of the new functionality
