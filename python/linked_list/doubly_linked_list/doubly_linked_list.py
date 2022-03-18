@@ -54,30 +54,69 @@ class DoublyLinkedList:
         self.count += 1
         return node
 
-    # Insert a new node with the data at location {index}
-    def insert_node_by_index(self, data, index):
+    # Insert a new node at location {index}
+    def insert_new_node(self, node, index):
+        # If index is out of range, raise an error
+        if index > self.count or index < 0:
+            raise ValueError(f"Error: Index out of range: {index}, size: {self.count}")
+
+        if node == None:
+            raise ValueError(f"Error: Node must not be null")
+
+        if node.data == None:
+            raise ValueError(f"Error: Node must have valid value")
+
+        # Append to the end of the list
+        if index == self.count:
+            temp = self.tail
+            temp.next = node
+            node.prev = temp
+            self.tail = node
+            self.count += 1
+            return node
+       
+        # Insert node at the front of the list
+        if index == 0:
+            self.head.prev = node
+            self.head.prev = self.head
+            self.head = self.head.prev
+            self.count += 1
+            return node
+
+        # Starting with the head, iterate down the list {index} number of times
+        start = self.head
+        for _ in range(index):
+            start = start.next
+    
+        # Once the start pointer is at the correct index, insert the node at this index
+        start.prev.next = node
+        start.prev.next.prev = start.prev
+        start.prev.next.next = start
+        self.count += 1
+        return node
+
+    # Create a new node and insert it at location {index}
+    def insert_new_data(self, data, index):
         # If index is out of range, raise an error
         if index > self.count or index < 0:
             raise ValueError(f"Error: Index out of range: {index}, size: {self.count}")
 
         if data == None:
-            raise ValueError(f"Error: Node must not be null.")
-
-        if data.val == None:
-            raise ValueError(f"Error: Node must have valid value.")
+            raise ValueError(f"Error: Node must have valid value")
 
         # Append to the end of the list
         if index == self.count:
-            self.append(data)
-            return 
+            return self.append_new_data(data)
        
+        node = Node(data)
+
         # Insert node at the front of the list
         if index == 0:
-            self.head.previous = Node(data)
-            self.head.previous = self.head
-            self.head = self.head.previous
+            self.head.prev = node
+            self.head.prev = self.head
+            self.head = self.head.prev
             self.count += 1
-            return
+            return node
 
         # Starting with the head, iterate down the list {index} number of times
         start = self.head
@@ -85,20 +124,23 @@ class DoublyLinkedList:
             start = start.next
     
         # Once the start pointer is at the correct index, insert the data as a new node at this index
-        start.previous.next = Node(data)
-        start.previous.next.previous = start.previous
-        start.previous.next.next = start
+        start.prev.next = node
+        start.prev.next.prev = start.prev
+        start.prev.next.next = start
         self.count += 1
-        return
+        return node
     
     # Remove the node by index
     def remove_by_index(self, index):
+        if self.count == 0:
+            raise ValueError(f"Error: List is empty")
+
         if index >= self.count or index < 0:
-            raise ValueError(f"Index out of range: {index}, size: {self.count}")
+            raise ValueError(f"Error: Index out of range: {index}, size: {self.count}")
 
         if index == 0:
             self.head = self.head.next
-            self.head.previous = None
+            self.head.prev = None
             self.count -= 1
             return
 
@@ -112,8 +154,8 @@ class DoublyLinkedList:
         for _ in range(index):
             start = start.next
 
-        start.previous.next = start.next
-        start.next.previous = start.previous
+        start.prev.next = start.next
+        start.next.prev = start.prev
         self.count -= 1
         return
 

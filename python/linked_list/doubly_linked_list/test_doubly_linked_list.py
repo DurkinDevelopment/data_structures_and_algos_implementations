@@ -299,4 +299,64 @@ class TestDoublyLinkedList(TestDataGenerator):
         linked_list.remove_by_node(linked_list.tail)
         self.validate_list_is_connected(linked_list)
 
+    def test_remove_by_index_empty_list(self):
+        with pytest.raises(ValueError) as excinfo:
+            node_list = self.generate_nodes(0)
+            linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+            linked_list.remove_by_index(0)
+            assert str(excinfo.value) == "Error: List is empty"
+
+    def test_remove_by_index_invalid_index(self):
+        with pytest.raises(ValueError) as excinfo:
+            node_list = self.generate_nodes(3)
+            linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+            linked_list.remove_by_index(4)
+            assert str(excinfo.value) == "Error: Index is out of range: {index}, size: {linked_list.count}"
+
+    def test_remove_by_index_head_node_double_node_list(self):
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_index(0)
+        self.validate_list_is_connected(linked_list)
+
+    def test_remove_by_index_tail_node_double_node_list(self):
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_index(1)
+        self.validate_list_is_connected(linked_list)
+
+    def test_remove_by_index_head_node_triple_node_list(self):
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_index(0)
+        self.validate_list_is_connected(linked_list)
+
+    def test_remove_by_index_tail_node_triple_node_list(self):
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_index(2)
+        self.validate_list_is_connected(linked_list)
+
+    def test_remove_by_index_middle_node_triple_node_list(self):
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_index(1)
+        self.validate_list_is_connected(linked_list)
+
+    def test_remove_by_index_second_node_quad_node_list(self):
+        node_list = self.generate_nodes(4)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_index(1)
+        self.validate_list_is_connected(linked_list)
+
+    def test_remove_by_index_third_node_quad_node_list(self):
+        node_list = self.generate_nodes(4)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_index(2)
+        self.validate_list_is_connected(linked_list)
+
     ## TODO: Create test coverage for append / insert / and any of the new functionality
+    #def test_append_new_node_
+    #def test_append_new_data_
+    #def test_insert_new_node_
+    #def test_insert_new_data_
