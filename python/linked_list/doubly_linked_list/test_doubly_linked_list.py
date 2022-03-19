@@ -235,7 +235,7 @@ class TestDoublyLinkedList(TestDataGenerator):
             linked_list = self.generate_doubly_linked_list_from_nodes(node_list[:1])
             linked_list.remove_by_node(None)
             self.validate_list_is_connected(linked_list)
-            assert str(excinfo.value) == "Error: Invalid node"
+            assert str(excinfo.value) == "Error: Node is null"
 
     def test_remove_by_node_list_invalid_node_data(self):
         with pytest.raises(ValueError) as excinfo:
@@ -355,8 +355,81 @@ class TestDoublyLinkedList(TestDataGenerator):
         linked_list.remove_by_index(2)
         self.validate_list_is_connected(linked_list)
 
-    ## TODO: Create test coverage for append / insert / and any of the new functionality
-    #def test_append_new_node_
+    def test_append_new_node_null_node(self):
+        with pytest.raises(ValueError) as excinfo:
+            node_list = self.generate_nodes(2)
+            linked_list = self.generate_doubly_linked_list_from_nodes(node_list[:1])
+            linked_list.append_new_node(None)
+            self.validate_list_is_connected(linked_list)
+            assert str(excinfo.value) == "Error: Node is null"
+
+    def test_append_new_node_null_node(self):
+        with pytest.raises(ValueError) as excinfo:
+            node_list = self.generate_nodes(2)
+            node = self.generate_node(None, None, None)
+            linked_list = self.generate_doubly_linked_list_from_nodes(node_list[:1])
+            linked_list.append_new_node(node)
+            self.validate_list_is_connected(linked_list)
+            assert str(excinfo.value) == "Error: Node data is null"
+
+    def test_append_new_node_empty_list(self):
+        node = self.generate_node(1, None, None)
+        linked_list = self.generate_doubly_linked_list_from_nodes([])
+        linked_list.append_new_node(node)
+        self.validate_list_is_connected(linked_list)
+
+    def test_append_new_node_single_node_list(self):
+        node_list = self.generate_nodes(1)
+        node = self.generate_node(2, None, None)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.append_new_node(node)
+        self.validate_list_is_connected(linked_list)
+
+    def test_append_new_node_double_node_list(self):
+        node_list = self.generate_nodes(2)
+        node = self.generate_node(3, None, None)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.append_new_node(node)
+        self.validate_list_is_connected(linked_list)
+
+    def test_append_new_node_triple_node_list(self):
+        node_list = self.generate_nodes(3)
+        node = self.generate_node(4, None, None)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.append_new_node(node)
+        self.validate_list_is_connected(linked_list)
+
+    def test_append_new_data_null_data(self):
+        with pytest.raises(ValueError) as excinfo:
+            node_list = self.generate_nodes(2)
+            linked_list = self.generate_doubly_linked_list_from_nodes(node_list[:1])
+            linked_list.append_new_data(None)
+            self.validate_list_is_connected(linked_list)
+            assert str(excinfo.value) == "Error: Node data is null"
+
+    def test_append_new_data_empty_list(self):
+        linked_list = self.generate_doubly_linked_list_from_nodes([])
+        linked_list.append_new_data(5)
+        self.validate_list_is_connected(linked_list)
+
+    def test_append_new_data_single_node_list(self):
+        node_list = self.generate_nodes(1)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.append_new_data(5)
+        self.validate_list_is_connected(linked_list)
+
+    def test_append_new_node_double_node_list(self):
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.append_new_data(5)
+        self.validate_list_is_connected(linked_list)
+
+    def test_append_new_node_triple_node_list(self):
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        linked_list.append_new_data(5)
+        self.validate_list_is_connected(linked_list)
+
     #def test_append_new_data_
     #def test_insert_new_node_
     #def test_insert_new_data_

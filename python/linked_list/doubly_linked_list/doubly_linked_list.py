@@ -28,8 +28,13 @@ class DoublyLinkedList:
 
     # Append the data as a new node at the end of the list
     def append_new_data(self, data):
+        # Validate that the node data is not null
+        if data == None: 
+            raise ValueError("Error: Invalid node data")
+
         if self.head == None:
-            self.head = Node(data, None, None)
+            node = Node(data, None, None)
+            self.head = node
             self.tail = self.head
             self.count += 1
             return node
@@ -42,6 +47,14 @@ class DoublyLinkedList:
     
     # Append a new node to the end of the list
     def append_new_node(self, node):
+        # Validate that the node is not null
+        if node == None: 
+            raise ValueError("Error: Node is null")
+
+        # Validate that the node data is not null
+        if node.data == None: 
+            raise ValueError("Error: Invalid node data")
+
         if self.head == None:
             self.head = node
             self.tail = self.head
@@ -284,7 +297,7 @@ class DoublyLinkedList:
 
         # Validate that the node is not null
         if node == None: 
-            raise ValueError("Error: Invalid node")
+            raise ValueError("Error: Node is null")
 
         # Validate that the node data is not null
         if node.data == None: 
