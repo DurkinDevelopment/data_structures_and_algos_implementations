@@ -79,20 +79,51 @@ class DoublyLinkedList:
         if node.data == None:
             raise ValueError(f"Error: Node must have valid value")
 
-        # Append to the end of the list
-        if index == self.count:
-            temp = self.tail
-            temp.next = node
-            node.prev = temp
+        # If the list is empty, then update the tail and head
+        if self.count == 0:
+            self.head = node
             self.tail = node
             self.count += 1
             return node
-       
+
+        # Handle the edge cases for a linked list with only 1 node
+        if self.count == 1:
+            # If adding at the front, set to head and update tail
+            if index == 0:
+                self.head = node
+                self.head.prev = None
+                self.head.next = self.tail
+                self.tail.next = None
+                self.tail.prev = self.head
+                self.count += 1
+                return node
+            else:
+                self.tail = node
+                self.tail.prev = self.head
+                self.tail.next = None
+                self.head.next = self.tail
+                self.head.prev = None
+                self.count += 1
+                return node
+
+        # Append to the end of the list
+        if index == self.count:
+            return self.append_new_data(node.data)
+
         # Insert node at the front of the list
         if index == 0:
+            node.next = self.head
             self.head.prev = node
-            self.head.prev = self.head
-            self.head = self.head.prev
+            self.head = node
+            self.head.prev = None
+            self.count += 1
+            return node
+
+        if index == self.count - 1:
+            node.next = self.tail
+            node.prev = self.tail.prev
+            self.tail.prev.next = node
+            self.tail.prev = node
             self.count += 1
             return node
 
@@ -102,9 +133,10 @@ class DoublyLinkedList:
             start = start.next
     
         # Once the start pointer is at the correct index, insert the node at this index
-        start.prev.next = node
-        start.prev.next.prev = start.prev
-        start.prev.next.next = start
+        node.next = start.next
+        node.prev = start
+        start.next = node
+        node.next.prev = node
         self.count += 1
         return node
 
@@ -116,18 +148,55 @@ class DoublyLinkedList:
 
         if data == None:
             raise ValueError(f"Error: Node must have valid value")
+       
+        node = Node(data)
+
+        # If the list is empty, then update the tail and head
+        if self.count == 0:
+            self.head = node
+            self.tail = node
+            self.count += 1
+            return node
+
+        # Handle the edge cases for a linked list with only 1 node
+        if self.count == 1:
+            # If adding at the front, set to head and update tail
+            if index == 0:
+                self.head = node
+                self.head.prev = None
+                self.head.next = self.tail
+                self.tail.next = None
+                self.tail.prev = self.head
+                self.count += 1
+                return node
+            else:
+                self.tail = node
+                self.tail.prev = self.head
+                self.tail.next = None
+                self.head.next = self.tail
+                self.head.prev = None
+                self.count += 1
+                return node
+
 
         # Append to the end of the list
         if index == self.count:
             return self.append_new_data(data)
        
-        node = Node(data)
-
         # Insert node at the front of the list
         if index == 0:
+            node.next = self.head
             self.head.prev = node
-            self.head.prev = self.head
-            self.head = self.head.prev
+            self.head = node
+            self.head.prev = None
+            self.count += 1
+            return node
+
+        if index == self.count - 1:
+            node.next = self.tail
+            node.prev = self.tail.prev
+            self.tail.prev.next = node
+            self.tail.prev = node
             self.count += 1
             return node
 
@@ -136,13 +205,14 @@ class DoublyLinkedList:
         for _ in range(index):
             start = start.next
     
-        # Once the start pointer is at the correct index, insert the data as a new node at this index
-        start.prev.next = node
-        start.prev.next.prev = start.prev
-        start.prev.next.next = start
+        # Once the start pointer is at the correct index, insert the node at this index
+        node.next = start.next
+        node.prev = start
+        start.next = node
+        node.next.prev = node
         self.count += 1
         return node
-    
+
     # Remove the node by index
     def remove_by_index(self, index):
         if self.count == 0:

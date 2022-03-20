@@ -474,8 +474,224 @@ class TestDoublyLinkedList(TestDataGenerator):
         index = 0
         node = self.generate_node(0, None, None)
         linked_list = self.generate_doubly_linked_list_from_nodes([])
-        linked_list.insert_new_data(node, index)
+        linked_list.insert_new_node(node, index)
         self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 1
 
-    #def test_insert_new_node_
-    #def test_insert_new_data_
+    def test_insert_new_node_single_node_list_head(self):
+        index = 0
+        node = self.generate_node(2, None, None)
+        node_list = self.generate_nodes(1)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 1
+        node = linked_list.insert_new_node(node, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 2
+        
+    def test_insert_new_node_single_node_list_tail(self):
+        index = 1
+        node = self.generate_node(2, None, None)
+        node_list = self.generate_nodes(1)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 1
+        node = linked_list.insert_new_node(node, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 2
+
+    def test_insert_new_node_double_node_list_head(self):
+        index = 0
+        node = self.generate_node(3, None, None)
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 2
+        node = linked_list.insert_new_node(node, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 3
+
+    def test_insert_new_node_double_node_list_tail(self):
+        index = 2
+        node = self.generate_node(3, None, None)
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 2
+        node = linked_list.insert_new_node(node, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 3
+
+    def test_insert_new_node_double_node_list_middle(self):
+        index = 1
+        node = self.generate_node(3, None, None)
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 2
+        node = linked_list.insert_new_node(node, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 3
+
+    def test_insert_new_node_triple_node_list_head(self):
+        index = 0
+        node = self.generate_node(4, None, None)
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 3
+        node = linked_list.insert_new_node(node, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 4
+
+    def test_insert_new_node_triple_node_list_tail(self):
+        index = 3
+        node = self.generate_node(4, None, None)
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 3
+        node = linked_list.insert_new_node(node, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 4
+
+    def test_insert_new_node_triple_node_list_middle_left(self):
+        index = 1
+        node = self.generate_node(4, None, None)
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 3
+        node = linked_list.insert_new_node(node, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 4
+
+    def test_insert_new_node_triple_node_list_middle_right(self):
+        index = 2
+        node = self.generate_node(4, None, None)
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 3
+        node = linked_list.insert_new_node(node, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 4
+
+    def test_insert_new_data_null_data(self):
+        with pytest.raises(ValueError) as excinfo:
+            index = 0
+            node = self.generate_node(None, None, None)
+            node_list = self.generate_nodes(2)
+            linked_list = self.generate_doubly_linked_list_from_nodes(node_list[:1])
+            linked_list.insert_new_data(node.data, 0)
+            self.validate_list_is_connected(linked_list)
+            assert str(excinfo.value) == "Error: Node data must have valid value"
+            
+    def test_insert_new_data_invalid_index_negative_index(self):
+        with pytest.raises(ValueError) as excinfo:
+            index = -4
+            node = self.generate_node(3, None, None)
+            node_list = self.generate_nodes(2)
+            linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+            linked_list.insert_new_data(node.data, index)
+            self.validate_list_is_connected(linked_list)
+            assert str(excinfo.value) == "Error: Index out of range: {index}, size: {linked_list.count}"
+
+    def test_insert_new_data_invalid_index_negative_index(self):
+        with pytest.raises(ValueError) as excinfo:
+            index = 4
+            node = self.generate_node(3, None, None)
+            node_list = self.generate_nodes(2)
+            linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+            linked_list.insert_new_data(node.data, index)
+            self.validate_list_is_connected(linked_list)
+            assert str(excinfo.value) == "Error: Index out of range: {index}, size: {linked_list.count}"
+
+    def test_insert_new_data_empty_list(self):
+        index = 0
+        node = self.generate_node(0, None, None)
+        linked_list = self.generate_doubly_linked_list_from_nodes([])
+        linked_list.insert_new_data(node.data, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 1
+
+    def test_insert_new_data_single_node_list_head(self):
+        index = 0
+        node = self.generate_node(2, None, None)
+        node_list = self.generate_nodes(1)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 1
+        node = linked_list.insert_new_data(node.data, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 2
+        
+    def test_insert_new_data_single_node_list_tail(self):
+        index = 1
+        node = self.generate_node(2, None, None)
+        node_list = self.generate_nodes(1)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 1
+        node = linked_list.insert_new_data(node.data, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 2
+
+    def test_insert_new_data_double_node_list_head(self):
+        index = 0
+        node = self.generate_node(3, None, None)
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 2
+        node = linked_list.insert_new_data(node.data, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 3
+
+    def test_insert_new_data_double_node_list_tail(self):
+        index = 2
+        node = self.generate_node(3, None, None)
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 2
+        node = linked_list.insert_new_data(node.data, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 3
+
+    def test_insert_new_data_double_node_list_middle(self):
+        index = 1
+        node = self.generate_node(3, None, None)
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 2
+        node = linked_list.insert_new_data(node.data, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 3
+
+    def test_insert_new_data_triple_node_list_head(self):
+        index = 0
+        node = self.generate_node(4, None, None)
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 3
+        node = linked_list.insert_new_data(node.data, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 4
+
+    def test_insert_new_data_triple_node_list_tail(self):
+        index = 3
+        node = self.generate_node(4, None, None)
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 3
+        node = linked_list.insert_new_data(node.data, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 4
+
+    def test_insert_new_data_triple_node_list_middle_left(self):
+        index = 1
+        node = self.generate_node(4, None, None)
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 3
+        node = linked_list.insert_new_data(node.data, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 4
+
+    def test_insert_new_data_triple_node_list_middle_right(self):
+        index = 2
+        node = self.generate_node(4, None, None)
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+        assert linked_list.count == 3
+        node = linked_list.insert_new_data(node.data, index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 4
