@@ -409,7 +409,7 @@ class TestDoublyLinkedList(TestDataGenerator):
 
     def test_append_new_data_empty_list(self):
         linked_list = self.generate_doubly_linked_list_from_nodes([])
-        linked_list.append_new_data(5)
+        linked_list.append_new_data(0)
         self.validate_list_is_connected(linked_list)
 
     def test_append_new_data_single_node_list(self):
@@ -430,6 +430,52 @@ class TestDoublyLinkedList(TestDataGenerator):
         linked_list.append_new_data(5)
         self.validate_list_is_connected(linked_list)
 
-    #def test_append_new_data_
+    def test_insert_new_node_null_node(self):
+        with pytest.raises(ValueError) as excinfo:
+            index = 0
+            node = None
+            node_list = self.generate_nodes(2)
+            linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+            linked_list.insert_new_node(node, index)
+            self.validate_list_is_connected(linked_list)
+            assert str(excinfo.value) == "Error: Node must not be null"
+
+    def test_insert_new_node_null_data(self):
+        with pytest.raises(ValueError) as excinfo:
+            index = 0
+            node = self.generate_node(None, None, None)
+            node_list = self.generate_nodes(2)
+            linked_list = self.generate_doubly_linked_list_from_nodes(node_list[:1])
+            linked_list.insert_new_node(node, 0)
+            self.validate_list_is_connected(linked_list)
+            assert str(excinfo.value) == "Error: Node data must have valid value"
+            
+    def test_insert_new_node_invalid_index_negative_index(self):
+        with pytest.raises(ValueError) as excinfo:
+            index = -4
+            node = self.generate_node(3, None, None)
+            node_list = self.generate_nodes(2)
+            linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+            linked_list.insert_new_node(node, index)
+            self.validate_list_is_connected(linked_list)
+            assert str(excinfo.value) == "Error: Index out of range: {index}, size: {linked_list.count}"
+
+    def test_insert_new_node_invalid_index_negative_index(self):
+        with pytest.raises(ValueError) as excinfo:
+            index = 4
+            node = self.generate_node(3, None, None)
+            node_list = self.generate_nodes(2)
+            linked_list = self.generate_doubly_linked_list_from_nodes(node_list)
+            linked_list.insert_new_node(node, index)
+            self.validate_list_is_connected(linked_list)
+            assert str(excinfo.value) == "Error: Index out of range: {index}, size: {linked_list.count}"
+
+    def test_insert_new_node_empty_list(self):
+        index = 0
+        node = self.generate_node(0, None, None)
+        linked_list = self.generate_doubly_linked_list_from_nodes([])
+        linked_list.insert_new_data(node, index)
+        self.validate_list_is_connected(linked_list)
+
     #def test_insert_new_node_
     #def test_insert_new_data_
