@@ -4,7 +4,7 @@ class Node:
         self.next = None
 
 class SinglyLinkedList:
-    def __init__(self, head = Node()):
+    def __init__(self):
         self.head = head
 
     # Traverse and print the linked list
@@ -21,7 +21,7 @@ class SinglyLinkedList:
             curNode = curNode.next
         return curNode
 
-    def traverse_print_from_tail(self):
+#TODO:    def traverse_print_from_tail(self):
 
     # Insert node at the beginning of the list
     def insert_at_beginning(self, node):
@@ -48,7 +48,7 @@ class SinglyLinkedList:
         middle_node.next = new_node
         return True
 
-    def insert_at_index(self, index):
+#TODO:    def insert_at_index(self, index):
     
     # Remove the node from the linked list
     def remove_node_by_node(self, node):
@@ -75,6 +75,6 @@ class SinglyLinkedList:
         prev.next = curNode.next
         curNode = None
 
-    def remove_node_by_index(self, index):
+#TODO:    def remove_node_by_index(self, index):
 
-    def retrieve_node_by_index(self, index):
+#TODO:    def retrieve_node_by_index(self, index):
