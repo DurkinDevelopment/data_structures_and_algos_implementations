@@ -11,21 +11,25 @@ class SinglyLinkedList:
     # Find the tail of the linked list
     def find_tail(self):
         curNode = self.head
-        while curNode.next is not None:
+        while curNode.next != None:
             curNode = curNode.next
         return curNode
 
     # Traverse and print the linked list
     def traverse_print_from_head(self):
         curNode = self.head
-        while curNode is not None:
+        while curNode != None:
             print(curNode.data)
             curNode = curNode.next
 
     # Traverse the list and create a temporary array, then increment through the temporary array backwards and print out each value
     def traverse_print_from_tail(self):
+        if self.count == 0:
+            return
+
         temp_array = []
-        while curNode.next is not None:
+        curNode = self.head
+        while curNode.next != None:
             temp_array.append(curNode)
             curNode = curNode.next
         i = len(temp_array)
@@ -35,8 +39,12 @@ class SinglyLinkedList:
 
     # Insert node at the front of the list
     def insert_at_front(self, node):
-        if node is None:
-            return False
+        # Input Parameters - Error Handling
+        if node == None:
+            raise ValueError("Error: Invalid node")
+        if node.data == None:
+            raise ValueError("Error: Invalid node data")
+
         node.next = self.head
         self.head = node
         self.count += 1
@@ -49,6 +57,7 @@ class SinglyLinkedList:
             raise ValueError("Error: Invalid node")
         if node.data == None:
             raise ValueError("Error: Invalid node data")
+        
         if self.count == 0: 
             self.head = node
         else:
