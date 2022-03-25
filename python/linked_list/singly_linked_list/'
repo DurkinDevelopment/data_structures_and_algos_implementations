@@ -128,42 +128,6 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 5
 
-    #insert at end
-    def test_insert_at_end_empty_list(self):
-        node = self.generate_node(1, None, None)
-        linked_list = self.generate_singly_linked_list(0)
-        linked_list.insert_at_end(node)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 1
-
-    def test_insert_at_end_single_node_list(self):
-        node = self.generate_node(2, None, None)
-        linked_list = self.generate_singly_linked_list(1)
-        linked_list.insert_at_end(node)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 2
-
-    def test_insert_at_end_double_node_list(self):
-        node = self.generate_node(3, None, None)
-        linked_list = self.generate_singly_linked_list(2)
-        linked_list.insert_at_end(node)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 3
-        
-    def test_insert_at_end_triple_node_list(self):
-        node = self.generate_node(4, None, None)
-        linked_list = self.generate_singly_linked_list(3)
-        linked_list.insert_at_end(node)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 4
-
-    def test_insert_at_end_quad_node_list(self):
-        node = self.generate_node(5, None, None)
-        linked_list = self.generate_singly_linked_list(4)
-        linked_list.insert_at_end(node)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 5
-
     # insert at index
     def test_insert_at_index_empty_list(self):
         index = 0
