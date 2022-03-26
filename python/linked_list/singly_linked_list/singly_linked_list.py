@@ -66,7 +66,7 @@ class SinglyLinkedList:
         self.count += 1
         return node
 
-    # Insert the new node after the middle_node
+    # Insert the new node after the existing node
     def insert_after_node(self, existing_node, new_node):
         if self.count == 0:
             raise ValueError("Error: Invalid list length")
@@ -75,10 +75,10 @@ class SinglyLinkedList:
             raise ValueError("Error: Invalid node")
         if existing_node.data == None or new_node.data == None:
             raise ValueError("Error: Invalid node data")
-        new_node.next = middle_node.next
-        middle_node.next = new_node
+        new_node.next = existing_node.next
+        existing_node.next = new_node
         self.count += 1
-        return node
+        return new_node
 
     def insert_at_index(self, index, node):
         # Input Parameters - Error Handling

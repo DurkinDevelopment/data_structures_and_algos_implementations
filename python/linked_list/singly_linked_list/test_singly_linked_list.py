@@ -35,7 +35,7 @@ class TestDataGenerator():
     def generate_nodes(self, count = 1):
         node_list = []
         for i in range(count):
-            new_node = Node(count - i, None, None)
+            new_node = Node(count - i, None)
             node_list.append(new_node)
         return node_list
 
@@ -431,47 +431,34 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
             assert linked_list.count == 0
         assert str(excinfo.value) == "Error: Invalid list length"
 
-    def test_insert_at_index_empty_list(self):
-        index = 0
-        node = self.generate_node(1, None, None)
-        linked_list = self.generate_singly_linked_list(0)
-        linked_list.insert_at_index(index, node)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 1
-
-    def test_insert_at_index_single_node_list_front(self):
-        index = 0
-        node = self.generate_node(2, None, None)
-        linked_list = self.generate_singly_linked_list(1)
-        linked_list.insert_at_index(index, node)
+    def test_insert_after_node_single_node_list_after_head(self):
+        node_list = self.generate_nodes(1)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        existing_node = node_list[0]
+        new_node = self.generate_node(3, None, None)
+        linked_list.insert_after_node(existing_node, new_node)
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 2
 
-    def test_insert_at_index_single_node_list_next_last(self):
-        index = 1
-        node = self.generate_node(2, None, None)
-        linked_list = self.generate_singly_linked_list(1)
-        linked_list.insert_at_index(index, node)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 2
-
-    def test_insert_at_index_double_node_list_front(self):
-        index = 0
-        node = self.generate_node(3, None, None)
-        linked_list = self.generate_singly_linked_list(2)
-        linked_list.insert_at_index(index, node)
+    def test_insert_after_node_double_node_list_after_head(self):
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        existing_node = node_list[0]
+        new_node = self.generate_node(3, None, None)
+        linked_list.insert_after_node(existing_node, new_node)
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 3
 
-    def test_insert_at_index_double_node_list_first_middle(self):
-        index = 1 
-        node = self.generate_node(3, None, None)
-        linked_list = self.generate_singly_linked_list(2)
-        linked_list.insert_at_index(index, node)
+    def test_insert_after_node_double_node_list_after_tail(self):
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        existing_node = node_list[1]
+        new_node = self.generate_node(3, None, None)
+        linked_list.insert_after_node(existing_node, new_node)
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 3
 
-    def test_insert_at_index_double_node_list_second_middle(self):
+    def test_insert_after_node_double_node_list_second_middle(self):
         index = 2 
         node = self.generate_node(3, None, None)
         linked_list = self.generate_singly_linked_list(2)
@@ -479,7 +466,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 3
         
-    def test_insert_at_index_double_node_list_last(self):
+    def test_insert_after_node_double_node_list_last(self):
         index = 3 
         node = self.generate_node(3, None, None)
         linked_list = self.generate_singly_linked_list(2)
@@ -487,7 +474,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 3
 
-    def test_insert_at_index_triple_node_list_front(self):
+    def test_insert_after_node_triple_node_list_front(self):
         index = 0
         node = self.generate_node(4, None, None)
         linked_list = self.generate_singly_linked_list(3)
@@ -495,7 +482,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 4
 
-    def test_insert_at_index_triple_node_list_first_middle(self):
+    def test_insert_after_node_triple_node_list_first_middle(self):
         index = 1
         node = self.generate_node(4, None, None)
         linked_list = self.generate_singly_linked_list(3)
@@ -503,7 +490,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 4
 
-    def test_insert_at_index_triple_node_list_second_middle(self):
+    def test_insert_after_node_triple_node_list_second_middle(self):
         index = 2
         node = self.generate_node(4, None, None)
         linked_list = self.generate_singly_linked_list(3)
@@ -511,7 +498,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 4
         
-    def test_insert_at_index_triple_node_list_third_middle(self):
+    def test_insert_after_node_triple_node_list_third_middle(self):
         index = 3
         node = self.generate_node(4, None, None)
         linked_list = self.generate_singly_linked_list(3)
@@ -519,7 +506,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 4
 
-    def test_insert_at_index_triple_node_list_last(self):
+    def test_insert_after_node_triple_node_list_last(self):
         index = 4
         node = self.generate_node(4, None, None)
         linked_list = self.generate_singly_linked_list(3)
@@ -527,7 +514,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 4
 
-    def test_insert_at_index_triple_node_list_front(self):
+    def test_insert_after_node_triple_node_list_front(self):
         index = 0
         node = self.generate_node(5, None, None)
         linked_list = self.generate_singly_linked_list(4)
@@ -535,7 +522,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 5
 
-    def test_insert_at_index_triple_node_list_first_middle(self):
+    def test_insert_after_node_triple_node_list_first_middle(self):
         index = 1
         node = self.generate_node(5, None, None)
         linked_list = self.generate_singly_linked_list(4)
@@ -543,7 +530,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 5
 
-    def test_insert_at_index_triple_node_list_second_middle(self):
+    def test_insert_after_node_triple_node_list_second_middle(self):
         index = 2
         node = self.generate_node(5, None, None)
         linked_list = self.generate_singly_linked_list(4)
@@ -551,7 +538,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 5
         
-    def test_insert_at_index_triple_node_list_third_middle(self):
+    def test_insert_after_node_triple_node_list_third_middle(self):
         index = 3
         node = self.generate_node(5, None, None)
         linked_list = self.generate_singly_linked_list(4)
@@ -559,7 +546,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 5
 
-    def test_insert_at_index_triple_node_list_forth_middle(self):
+    def test_insert_after_node_triple_node_list_forth_middle(self):
         index = 4
         node = self.generate_node(5, None, None)
         linked_list = self.generate_singly_linked_list(4)
@@ -567,7 +554,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 5
 
-    def test_insert_at_index_triple_node_list_last(self):
+    def test_insert_after_node_triple_node_list_last(self):
         index = 5
         node = self.generate_node(5, None, None)
         linked_list = self.generate_singly_linked_list(4)
