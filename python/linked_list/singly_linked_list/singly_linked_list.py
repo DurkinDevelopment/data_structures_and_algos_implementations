@@ -68,8 +68,11 @@ class SinglyLinkedList:
 
     # Insert the new node after the middle_node
     def insert_after_node(self, existing_node, new_node):
-        if middle_node is None:
-            return False
+        # Input Parameters - Error Handling
+        if existing_node == None or new_node == None:
+            raise ValueError("Error: Invalid node")
+        if existing_node.data == None or new_node.data == None:
+            raise ValueError("Error: Invalid node data")
         new_node.next = middle_node.next
         middle_node.next = new_node
         self.count += 1
@@ -81,7 +84,7 @@ class SinglyLinkedList:
             raise ValueError("Error: Invalid node")
         if node.data == None:
             raise ValueError("Error: Invalid node data")
-        if index > (self.count + 1):
+        if index == None or index > (self.count + 1):
             raise ValueError("Error: Invalid index")
 
         # Input Parameters - Edge Cases

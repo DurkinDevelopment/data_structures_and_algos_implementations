@@ -98,7 +98,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
             assert linked_list.count == 1
         assert str(excinfo.value) == "Error: Invalid node"
 
-    def test_insert_at_front_invalid_param_list_null_node(self):
+    def test_insert_at_front_invalid_param_list_null_node_data(self):
         with pytest.raises(ValueError) as excinfo:
             node = self.generate_node(None, None, None)
             linked_list = self.generate_singly_linked_list(1)
@@ -143,6 +143,23 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         assert linked_list.count == 5
 
     #insert at end
+    def test_insert_at_end_invalid_param_list_null_node(self):
+        with pytest.raises(ValueError) as excinfo:
+            linked_list = self.generate_singly_linked_list(1)
+            linked_list.insert_at_end(None)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid node"
+
+    def test_insert_at_end_invalid_param_list_null_node_data(self):
+        with pytest.raises(ValueError) as excinfo:
+            node = self.generate_node(None, None, None)
+            linked_list = self.generate_singly_linked_list(1)
+            linked_list.insert_at_end(node)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid node data"
+
     def test_insert_at_end_empty_list(self):
         node = self.generate_node(1, None, None)
         linked_list = self.generate_singly_linked_list(0)
@@ -179,6 +196,46 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         assert linked_list.count == 5
 
     # insert at index
+    def test_insert_at_index_invalid_param_null_node(self):
+        with pytest.raises(ValueError) as excinfo:
+            index = 0
+            node = None
+            linked_list = self.generate_singly_linked_list(1)
+            linked_list.insert_at_index(index, node)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid node"
+
+    def test_insert_at_index_invalid_param_null_node_data(self):
+        with pytest.raises(ValueError) as excinfo:
+            index = 0
+            node = self.generate_node(None, None, None)
+            linked_list = self.generate_singly_linked_list(1)
+            linked_list.insert_at_index(index, node)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid node data"
+
+    def test_insert_at_index_invalid_param_null_index(self):
+        with pytest.raises(ValueError) as excinfo:
+            index = None
+            node = self.generate_node(2, None, None)
+            linked_list = self.generate_singly_linked_list(1)
+            linked_list.insert_at_index(index, node)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 2
+        assert str(excinfo.value) == "Error: Invalid index"
+
+    def test_insert_at_index_invalid_param_index_out_of_bounds(self):
+        with pytest.raises(ValueError) as excinfo:
+            index = 3
+            node = self.generate_node(2, None, None)
+            linked_list = self.generate_singly_linked_list(1)
+            linked_list.insert_at_index(index, node)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid index"
+
     def test_insert_at_index_empty_list(self):
         index = 0
         node = self.generate_node(1, None, None)
@@ -324,6 +381,45 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         assert linked_list.count == 5
 
     #insert after node
+    def test_insert_after_node_invalid_param_null_existing_node(self):
+        with pytest.raises(ValueError) as excinfo:
+            existing_node = None
+            new_node = self.generate_node(3, None, None)
+            linked_list = self.generate_singly_linked_list(1)
+            linked_list.insert_after_node(existing_node, new_node)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid node"
+
+    def test_insert_after_node_invalid_param_null_existing_node_data(self):
+        with pytest.raises(ValueError) as excinfo:
+            existing_node = self.generate_node(None, None, None)
+            new_node = self.generate_node(3, None, None)
+            linked_list = self.generate_singly_linked_list(1)
+            linked_list.insert_after_node(existing_node, new_node)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid node data"
+
+    def test_insert_after_node_invalid_param_null_new_node(self):
+        with pytest.raises(ValueError) as excinfo:
+            existing_node = self.generate_node(3, None, None)
+            new_node = None 
+            linked_list = self.generate_singly_linked_list(1)
+            linked_list.insert_after_node(existing_node, new_node)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid node"
+
+    def test_insert_after_node_invalid_param_null_new_node_data(self):
+        with pytest.raises(ValueError) as excinfo:
+            existing_node = self.generate_node(3, None, None)
+            new_node = self.generate_node(None, None, None)
+            linked_list = self.generate_singly_linked_list(1)
+            linked_list.insert_after_node(existing_node, new_node)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid node data"
 
     # remove by index
     # remove by node
