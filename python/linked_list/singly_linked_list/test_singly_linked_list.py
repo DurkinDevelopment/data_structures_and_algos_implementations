@@ -89,10 +89,24 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         captured = capsys.readouterr()
         assert captured.out == "1\n2\n"
 
-    # TODO: Create the test cases for each method (empty, single, double, triple, & quad linked list)
-        # Get the test case set up for the first insert function, then copy and paste it for the rest of them
-
     #insert at front
+    def test_insert_at_front_invalid_param_list_null_node(self):
+        with pytest.raises(ValueError) as excinfo:
+            linked_list = self.generate_singly_linked_list(1)
+            linked_list.insert_at_front(None)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid node"
+
+    def test_insert_at_front_invalid_param_list_null_node(self):
+        with pytest.raises(ValueError) as excinfo:
+            node = self.generate_node(None, None, None)
+            linked_list = self.generate_singly_linked_list(1)
+            linked_list.insert_at_front(node)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid node data"
+
     def test_insert_at_front_empty_list(self):
         node = self.generate_node(1, None, None)
         linked_list = self.generate_singly_linked_list(0)
@@ -308,3 +322,10 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         linked_list.insert_at_index(index, node)
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 5
+
+    #insert after node
+
+    # remove by index
+    # remove by node
+    # retrieve by index
+    # traverse from end
