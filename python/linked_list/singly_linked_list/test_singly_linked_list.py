@@ -629,7 +629,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
             self.validate_list_is_connected(linked_list)
         assert str(excinfo.value) == "Error: Invalid node data"
 
-    def test_remove_by_node_invalid_list_size(self);
+    def test_remove_by_node_invalid_list_size(self):
         with pytest.raises(ValueError) as excinfo:
             node = self.generate_node(3, None, None)
             linked_list = self.generate_singly_linked_list(0)
@@ -643,9 +643,9 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
             linked_list = self.generate_singly_linked_list(0)
             node_list = self.generate_nodes(3)
             linked_list = self.generate_singly_linked_list_from_nodes(node_list)
-            linked_list.remove_by_node(None)
+            linked_list.remove_by_node(node)
             self.validate_list_is_connected(linked_list)
-        assert str(excinfo.value) == "Error: Node must be in list"
+        assert str(excinfo.value) == "Error: Node not found"
 
     def test_remove_by_node_single_node_list(self):
         index = 0
@@ -656,14 +656,6 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         assert linked_list.count == 0
 
     def test_remove_by_node_double_node_list_head(self):
-        index = 0
-        node_list = self.generate_nodes(2)
-        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
-        linked_list.remove_by_node(node_list[index])
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 1
-
-    def test_remove_by_node_double_node_list_tail(self):
         index = 1
         node_list = self.generate_nodes(2)
         linked_list = self.generate_singly_linked_list_from_nodes(node_list)
@@ -671,8 +663,16 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 1
 
-    def test_remove_by_node_triple_node_list_head(self):
+    def test_remove_by_node_double_node_list_tail(self):
         index = 0
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_node(node_list[index])
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 1
+
+    def test_remove_by_node_triple_node_list_head(self):
+        index = 2
         node_list = self.generate_nodes(3)
         linked_list = self.generate_singly_linked_list_from_nodes(node_list)
         linked_list.remove_by_node(node_list[index])
@@ -688,7 +688,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         assert linked_list.count == 2
 
     def test_remove_by_node_triple_node_list_tail(self):
-        index = 2
+        index = 0
         node_list = self.generate_nodes(3)
         linked_list = self.generate_singly_linked_list_from_nodes(node_list)
         linked_list.remove_by_node(node_list[index])
@@ -696,7 +696,7 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         assert linked_list.count == 2
 
     def test_remove_by_node_quad_node_list_head(self):
-        index = 0
+        index = 3
         node_list = self.generate_nodes(4)
         linked_list = self.generate_singly_linked_list_from_nodes(node_list)
         linked_list.remove_by_node(node_list[index])
@@ -704,14 +704,6 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         assert linked_list.count == 3
 
     def test_remove_by_node_quad_node_list_first_middle(self):
-        index = 1
-        node_list = self.generate_nodes(4)
-        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
-        linked_list.remove_by_node(node_list[index])
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 3
-
-    def test_remove_by_node_quad_node_list_second_middle(self):
         index = 2
         node_list = self.generate_nodes(4)
         linked_list = self.generate_singly_linked_list_from_nodes(node_list)
@@ -719,8 +711,16 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 3
 
+    def test_remove_by_node_quad_node_list_second_middle(self):
+        index = 1
+        node_list = self.generate_nodes(4)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        linked_list.remove_by_node(node_list[index])
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 3
+
     def test_remove_by_node_quad_node_list_tail(self):
-        index = 3
+        index = 0
         node_list = self.generate_nodes(4)
         linked_list = self.generate_singly_linked_list_from_nodes(node_list)
         linked_list.remove_by_node(node_list[index])

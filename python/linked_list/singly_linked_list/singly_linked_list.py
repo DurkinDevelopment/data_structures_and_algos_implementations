@@ -123,6 +123,7 @@ class SinglyLinkedList:
         if node.data == None:
             raise ValueError("Error: Invalid node data")
 
+        # Edge Case - Handle the head node
         if self.head == node:
             self.head = self.head.next
             self.count -= 1
@@ -132,14 +133,17 @@ class SinglyLinkedList:
         cur_node = self.head.next
 
         # Validate the edge case - Head node is node to be removed
-        if cur_node != None and cur_node.next != None:
+        while cur_node != None:
             if cur_node == node:
                 prev_node.next = cur_node.next
                 self.count -= 1
                 return
+            else:
+                prev_node = cur_node
+                cur_node = cur_node.next
         
-        if node == None:
-            raise ValueError("Error: Node not found")
+        # Edge Case - Handle the node isn't in the list case
+        raise ValueError("Error: Node not found")
 
 
     def remove_by_index(self, index):
