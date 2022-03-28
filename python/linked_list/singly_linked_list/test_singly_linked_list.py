@@ -727,6 +727,101 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 3
 
-
     # retrieve by index
+    def test_retrieve_by_index_invalid_list_size(self):
+        with pytest.raises(ValueError) as excinfo:
+            index = 0
+            linked_list = self.generate_singly_linked_list(0)
+            linked_list.remove_by_index(index)
+            self.validate_list_is_connected(linked_list)
+        assert str(excinfo.value) == "Error: Invalid list size"
+
+    def test_retrieve_by_index_invalid_index(self):
+        with pytest.raises(ValueError) as excinfo:
+            index = 3
+            linked_list = self.generate_singly_linked_list(2)
+            linked_list.remove_by_index(index)
+            self.validate_list_is_connected(linked_list)
+        assert str(excinfo.value) == "Error: Invalid index"
+
+    def test_retrieve_by_index_single_node_list(self):
+        index = 0
+        node_list = self.generate_nodes(1)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        node = linked_list.retrieve_by_index(index)
+        self.validate_list_is_connected(linked_list)
+        assert node == node_list[linked_list.count - index - 1]
+
+    def test_retrieve_by_index_double_node_list_head(self):
+        index = 0
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        node = linked_list.retrieve_by_index(index)
+        self.validate_list_is_connected(linked_list)
+        assert node == node_list[linked_list.count - index - 1]
+
+    def test_retrieve_by_index_double_node_list_tail(self):
+        index = 1
+        node_list = self.generate_nodes(2)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        node = linked_list.retrieve_by_index(index)
+        self.validate_list_is_connected(linked_list)
+        assert node == node_list[linked_list.count - index - 1]
+
+    def test_retrieve_by_index_triple_node_list_head(self):
+        index = 0
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        node = linked_list.retrieve_by_index(index)
+        self.validate_list_is_connected(linked_list)
+        assert node == node_list[linked_list.count - index - 1]
+
+    def test_retrieve_by_index_triple_node_list_middle(self):
+        index = 1
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        node = linked_list.retrieve_by_index(index)
+        self.validate_list_is_connected(linked_list)
+        assert node == node_list[linked_list.count - index - 1]
+
+    def test_retrieve_by_index_triple_node_list_tail(self):
+        index = 2
+        node_list = self.generate_nodes(3)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        node = linked_list.retrieve_by_index(index)
+        self.validate_list_is_connected(linked_list)
+        assert node == node_list[linked_list.count - index - 1]
+
+    def test_retrieve_by_index_quad_node_list_head(self):
+        index = 3
+        node_list = self.generate_nodes(4)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        node = linked_list.retrieve_by_index(index)
+        self.validate_list_is_connected(linked_list)
+        assert node == node_list[linked_list.count - index - 1]
+
+    def test_retrieve_by_index_quad_node_list_first_middle(self):
+        index = 2
+        node_list = self.generate_nodes(4)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        node = linked_list.retrieve_by_index(index)
+        self.validate_list_is_connected(linked_list)
+        assert node == node_list[linked_list.count - index - 1]
+
+    def test_retrieve_by_index_quad_node_list_second_middle(self):
+        index = 1
+        node_list = self.generate_nodes(4)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        node = linked_list.retrieve_by_index(index)
+        self.validate_list_is_connected(linked_list)
+        assert node == node_list[linked_list.count - index - 1]
+
+    def test_retrieve_by_index_quad_node_list_tail(self):
+        index = 0
+        node_list = self.generate_nodes(4)
+        linked_list = self.generate_singly_linked_list_from_nodes(node_list)
+        node = linked_list.retrieve_by_index(index)
+        self.validate_list_is_connected(linked_list)
+        assert node == node_list[linked_list.count - index - 1]
+
     # traverse from end

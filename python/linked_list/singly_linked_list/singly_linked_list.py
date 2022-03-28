@@ -174,5 +174,17 @@ class SinglyLinkedList:
         self.count -= 1
         return cur_node
             
+    def retrieve_by_index(self, index):
+        if self.count == 0:
+            raise ValueError("Error: Invalid list size")
+        if index >= self.count or index < 0:
+            raise ValueError("Error: Invalid index")
 
-#TODO:    def retrieve_node_by_index(self, index):
+        cur_node = self.head
+        cur_index = 0
+
+        while cur_index != index: 
+            cur_node = cur_node.next
+            cur_index += 1
+
+        return cur_node
