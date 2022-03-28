@@ -116,34 +116,38 @@ class SinglyLinkedList:
 
     # Remove the node from the linked list
     def remove_by_node(self, node):
-        curNode = self.head
+        if self.count == 0:
+            raise ValueError("Error: Invalid list size")
+        if node == None:
+            raise ValueError("Error: Invalid node")
+        if node.data == None:
+            raise ValueError("Error: Invalid node data")
+
+        if self.head == node:
+            self.head = self.head.next
+            self.count -= 1
+            return
+
+        prev_node = self.head
+        cur_node = self.head.next
 
         # Validate the edge case - Head node is node to be removed
-        if curNode is not None:
-            if curNode is node:
-                self.head = curNode.next
-                curNode = None
-                return True
+        if cur_node != None and cur_node.next != None:
+            if cur_node == node:
+                prev_node.next = cur_node.next
+                self.count -= 1
+                return
+        
+        if node == None:
+            raise ValueError("Error: Node not found")
 
-        # Iterate through the linked list
-        while curNode is not None:
-            # Once you find the node, break from the loop
-            if curNode is node:
-                break
-            prev = curNode
-            curNode = curNode.next
-
-        if curNode is None:
-            return False
-
-        prev.next = curNode.next
-        curNode = None
 
     def remove_by_index(self, index):
         if self.count == 0:
             raise ValueError("Error: Invalid list size")
         if index >= self.count or index < 0:
             raise ValueError("Error: Invalid index")
+
         if index == 0:
             # Get the node, update the list, update the node, & return the node
             node = self.head
