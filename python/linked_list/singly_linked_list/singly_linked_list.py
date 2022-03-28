@@ -29,13 +29,17 @@ class SinglyLinkedList:
 
         temp_array = []
         curNode = self.head
-        while curNode.next != None:
+
+        while curNode != None:
             temp_array.append(curNode)
             curNode = curNode.next
-        i = len(temp_array)
-        while i > 0:
-            print(temp_array[i - 1].data)
-            i -= 1
+
+        length = len(temp_array)
+        index = 1
+
+        while index <= length:
+            print(temp_array[length - index].data)
+            index += 1
 
     # Insert node at the front of the list
     def insert_at_front(self, node):

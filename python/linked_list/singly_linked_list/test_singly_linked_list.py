@@ -83,11 +83,17 @@ class TestSinglyLinkedList(TestDataGenerator, TestDataValidator):
         empty_list = self.generate_singly_linked_list(0)
         self.validate_list_is_connected(empty_list)
 
-    def test_traverse_print(self, capsys):
+    def test_traverse_print_from_head(self, capsys):
         double_node_linked_list = self.generate_singly_linked_list(2)
         double_node_linked_list.traverse_print_from_head()
         captured = capsys.readouterr()
         assert captured.out == "1\n2\n"
+
+    def test_traverse_print_from_tail(self, capsys):
+        double_node_linked_list = self.generate_singly_linked_list(2)
+        double_node_linked_list.traverse_print_from_tail()
+        captured = capsys.readouterr()
+        assert captured.out == "2\n1\n"
 
     #insert at front
     def test_insert_at_front_invalid_param_list_null_node(self):
