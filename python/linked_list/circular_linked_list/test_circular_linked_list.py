@@ -339,185 +339,189 @@ class TestCircularLinkedList():
             assert linked_list.count == 1
         assert str(excinfo.value) == "Error: Invalid index"
 
-    def insert_at_index_invalid_index_out_of_range_positive(self):
+    def remove_by_index_invalid_index_out_of_range_positive(self):
         with pytest.raises(ValueError) as excinfo:
             linked_list = self.generate_linked_list(1)
             index = 20
-            data = linked_list.count
-            linked_list.insert_at_index(index, data)
+            linked_list.remove_by_index(index)
             self.validate_list_is_connected(linked_list)
             assert linked_list.count == 1
         assert str(excinfo.value) == "Error: Invalid index"
 
-    def insert_at_index_invalid_index_out_of_range_negative(self):
+    def remove_by_index_invalid_index_out_of_range_negative(self):
         with pytest.raises(ValueError) as excinfo:
             linked_list = self.generate_linked_list(1)
             index = -20
             data = linked_list.count
-            linked_list.insert_at_index(index, data)
+            linked_list.remove_by_index(index, data)
             self.validate_list_is_connected(linked_list)
         assert str(excinfo.value) == "Error: Invalid index"
 
-    def insert_at_index_invalid_node_data(self):
+    def remove_by_index_invalid_list_size(self):
         with pytest.raises(ValueError) as excinfo:
-            linked_list = self.generate_linked_list(1)
-            index = 0
-            data = None
-            linked_list.insert_at_index(index, data)
+            linked_list = self.generate_linked_list(0)
+            index = 2
+            linked_list.remove_by_index(index)
             self.validate_list_is_connected(linked_list)
-            assert linked_list.count == 1
-        assert str(excinfo.value) == "Error: Invalid node data"
+        assert str(excinfo.value) == "Error: Invalid list size"
 
-    def insert_at_index_empty_list(self):
+    def remove_by_index_single_node_list(self):
         linked_list = self.generate_linked_list(1)
         index = 0
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
+        linked_list.remove_by_index(index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 0
+
+    def remove_by_index_double_node_list_head(self):
+        linked_list = self.generate_linked_list(2)
+        index = 0
+        linked_list.remove_by_index(index)
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 1
 
-    def insert_at_index_single_node_list_head(self):
-        linked_list = self.generate_linked_list(1)
+    def remove_by_index_double_node_list_tail(self):
+        linked_list = self.generate_linked_list(2)
+        index = 1
+        linked_list.remove_by_index(index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 1
+
+    def remove_by_index_triple_node_list_head(self):
+        linked_list = self.generate_linked_list(3)
         index = 0
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
+        linked_list.remove_by_index(index)
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 2
 
-    def insert_at_index_single_node_list_tail(self):
-        linked_list = self.generate_linked_list(1)
+    def remove_by_index_triple_node_list_middle(self):
+        linked_list = self.generate_linked_list(3)
         index = 1
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
+        linked_list.remove_by_index(index)
         self.validate_list_is_connected(linked_list)
         assert linked_list.count == 2
 
-    def insert_at_index_double_node_list_head(self):
-        linked_list = self.generate_linked_list(0)
-        index = 0
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 3
-
-    def insert_at_index_double_node_list_middle(self):
-        linked_list = self.generate_linked_list(2)
-        index = 1
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 3
-
-    def insert_at_index_double_node_list_tail(self):
-        linked_list = self.generate_linked_list(2)
-        index = 2
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 3
-
-    def insert_at_index_triple_node_list_head(self):
-        linked_list = self.generate_linked_list(3)
-        index = 0
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 4
-
-    def insert_at_index_triple_node_list_first_middle(self):
-        linked_list = self.generate_linked_list(3)
-        index = 1
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 4
-
-    def insert_at_index_triple_node_list_second_middle(self):
+    def remove_by_index_triple_node_list_tail(self):
         linked_list = self.generate_linked_list(3)
         index = 2
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
+        linked_list.remove_by_index(index)
         self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 4
+        assert linked_list.count == 2
 
-    def insert_at_index_triple_node_list_tail(self):
-        linked_list = self.generate_linked_list(3)
-        index = 3
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 4
-
-    def insert_at_index_quad_node_list_head(self):
+    def remove_by_index_quad_node_list_head(self):
         linked_list = self.generate_linked_list(4)
         index = 0
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
+        linked_list.remove_by_index(index)
         self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 5
+        assert linked_list.count == 3
 
-    def insert_at_index_quad_node_list_first_middle(self):
+    def remove_by_index_quad_node_list_first_middle(self):
         linked_list = self.generate_linked_list(4)
         index = 1
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
+        linked_list.remove_by_index(index)
         self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 5
+        assert linked_list.count == 3
         
-    def insert_at_index_quad_node_list_second_middle(self):
+    def remove_by_index_quad_node_list_second_middle(self):
         linked_list = self.generate_linked_list(4)
         index = 2
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
+        linked_list.remove_by_index(index)
         self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 5
+        assert linked_list.count == 3
         
-    def insert_at_index_quad_node_list_third_middle(self):
-        linked_list = self.generate_linked_list(4)
-        index = 3
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 5
-
-    def insert_at_index_quad_node_list_tail(self):
-        linked_list = self.generate_linked_list(4)
-        index = 4
-        data = linked_list.count
-        linked_list.insert_at_index(index, data)
-        self.validate_list_is_connected(linked_list)
-        assert linked_list.count == 5
-
     def remove_by_index_quad_node_list_tail(self):
+        linked_list = self.generate_linked_list(4)
+        index = 3
+        linked_list.remove_by_index(index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 3
 
     # Remove By Node
     def remove_by_node_invalid_node(self):
+        with pytest.raises(ValueError) as excinfo:
+            linked_list = self.generate_linked_list(1)
+            node = None
+            linked_list.remove_by_node(index)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid index"
 
-    def remove_by_node_invalid_node_data(self):
-
-    def remove_by_node_invalid_index(self):
-
-    def remove_by_node_empty_list(self):
+    def remove_by_node_invalid_list_size(self):
+        with pytest.raises(ValueError) as excinfo:
+            linked_list = self.generate_linked_list(0)
+            index = 2
+            linked_list.remove_by_node(index)
+            self.validate_list_is_connected(linked_list)
+        assert str(excinfo.value) == "Error: Invalid list size"
 
     def remove_by_node_single_node_list(self):
+        linked_list = self.generate_linked_list(1)
+        index = 0
+        linked_list.remove_by_node(index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 0
 
     def remove_by_node_double_node_list_head(self):
+        linked_list = self.generate_linked_list(2)
+        index = 0
+        linked_list.remove_by_node(index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 1
 
     def remove_by_node_double_node_list_tail(self):
+        linked_list = self.generate_linked_list(2)
+        index = 1
+        linked_list.remove_by_node(index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 1
 
     def remove_by_node_triple_node_list_head(self):
+        linked_list = self.generate_linked_list(3)
+        index = 0
+        linked_list.remove_by_node(index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 2
 
     def remove_by_node_triple_node_list_middle(self):
+        linked_list = self.generate_linked_list(3)
+        index = 1
+        linked_list.remove_by_node(index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 2
 
     def remove_by_node_triple_node_list_tail(self):
+        linked_list = self.generate_linked_list(3)
+        index = 2
+        linked_list.remove_by_node(index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 2
 
     def remove_by_node_quad_node_list_head(self):
+        linked_list = self.generate_linked_list(4)
+        index = 0
+        linked_list.remove_by_node(index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 3
 
     def remove_by_node_quad_node_list_first_middle(self):
+        linked_list = self.generate_linked_list(4)
+        index = 1
+        linked_list.remove_by_node(index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 3
         
     def remove_by_node_quad_node_list_second_middle(self):
-
+        linked_list = self.generate_linked_list(4)
+        index = 2
+        linked_list.remove_by_node(index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 3
+        
     def remove_by_node_quad_node_list_tail(self):
+        linked_list = self.generate_linked_list(4)
+        index = 3
+        linked_list.remove_by_node(index)
+        self.validate_list_is_connected(linked_list)
+        assert linked_list.count == 3
 
     # Retrieve By Index
     def retrieve_by_index_invalid_index(self):
