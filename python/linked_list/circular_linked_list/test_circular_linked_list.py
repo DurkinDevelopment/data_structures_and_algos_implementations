@@ -524,7 +524,31 @@ class TestCircularLinkedList():
         assert linked_list.count == 3
 
     # Retrieve By Index
-    def retrieve_by_index_invalid_index(self):
+    def retrieve_by_index_invalid_index_none(self):
+        with pytest.raises(ValueError) as excinfo:
+            linked_list = self.generate_linked_list(1)
+            index = None
+            linked_list.remove_by_index(index)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid index"
+
+    def retrieve_by_index_invalid_index_out_of_range_positive(self):
+        with pytest.raises(ValueError) as excinfo:
+            linked_list = self.generate_linked_list(1)
+            index = 20
+            linked_list.remove_by_index(index)
+            self.validate_list_is_connected(linked_list)
+            assert linked_list.count == 1
+        assert str(excinfo.value) == "Error: Invalid index"
+
+    def retrieve_by_index_invalid_index_out_of_range_negative(self):
+        with pytest.raises(ValueError) as excinfo:
+            linked_list = self.generate_linked_list(1)
+            index = -20
+            data = linked_list.count
+            linked_list.remove_by_index(index, data)
+            self.validate_list_is_connected(linked_list)
 
     def retrieve_by_index_empty_list(self):
 
